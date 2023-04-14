@@ -1,11 +1,9 @@
 package com.sergio.appdesdecero.domain.model
-
-import com.sergio.appdesdecero.data.model.PokemonItemResponse
 import com.sergio.appdesdecero.data.model.PokemonModel
+import com.sergio.appdesdecero.data.model.PokemonResults
 
 data class Pokemon(
-    val name: String,
-    val sprites: PokemonItemResponse,
+    val results: List<PokemonResults>
 )
 
-fun PokemonModel.toDomain() = Pokemon(name, sprites)
+fun PokemonModel.toDomain() = Pokemon(results)

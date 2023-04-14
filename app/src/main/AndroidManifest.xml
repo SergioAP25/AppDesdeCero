@@ -12,7 +12,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppDesdeCero"
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         tools:targetApi="31"
         >
         <activity android:name=".ui.view.HomeActivity"
@@ -24,6 +24,10 @@
         </activity>
         <activity
             android:name=".ui.view.SearchBarActivity"
+            android:exported="false">
+        </activity>
+        <activity
+            android:name=".ui.view.DetailActivity"
             android:exported="false">
         </activity>
     </application>

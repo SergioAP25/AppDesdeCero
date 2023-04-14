@@ -16,7 +16,7 @@ object NetworkModule {
     @Provides
     fun provideRetrofit(): Retrofit {
         return return Retrofit.Builder()
-            .baseUrl("https://pokeapi.co/api/v2/pokemon/")
+            .baseUrl("https://pokeapi.co/api/v2/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
