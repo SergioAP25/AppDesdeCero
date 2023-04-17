@@ -9,8 +9,8 @@ import javax.inject.Inject
 class GetPokemonsByName @Inject constructor(
     private val repository: PokemonRepository
 ){
-    suspend operator fun invoke(url: String): FilteredPokemon? {
-        val pokemons = repository.getAllPokemonsByNameFromApi(url)
+    suspend operator fun invoke(name: String): FilteredPokemon? {
+        val pokemons = repository.getAllPokemonsByNameFromApi(name)
         return pokemons
     }
 }

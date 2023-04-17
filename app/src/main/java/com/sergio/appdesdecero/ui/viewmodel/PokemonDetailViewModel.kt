@@ -4,8 +4,6 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sergio.appdesdecero.domain.GetDetailPokemon
-import com.sergio.appdesdecero.domain.GetPokemons
 import com.sergio.appdesdecero.domain.GetPokemonsByName
 import com.sergio.appdesdecero.domain.model.FilteredPokemon
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -14,7 +12,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class PokemonDetailViewModel @Inject constructor(
-    val getDetailPokemon: GetDetailPokemon
+    val getPokemonsByName: GetPokemonsByName
 ): ViewModel(){
     val pokemonModel = MutableLiveData<FilteredPokemon?>()
     val isLoading = MutableLiveData<Boolean>()
@@ -23,7 +21,7 @@ class PokemonDetailViewModel @Inject constructor(
         viewModelScope.launch {
             isLoading.postValue(true)
 
-            val result = getDetailPokemon(pokemonName)
+            val result = getPokemonsByName(pokemonName)
 
             pokemonModel.postValue(result)
             isLoading.postValue(false)

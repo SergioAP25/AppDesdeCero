@@ -42,14 +42,10 @@ class PokemonViewModel @Inject constructor(
     suspend fun getFilteredPokemon(list: List<PokemonResults>?){
         var aux: FilteredPokemon
         list?.forEach {
-            aux = getPokemonsByName(it.url.substring(26))!!
+            aux = getPokemonsByName(it.url.substring(34))!!
             if(!filteredPokemon.contains(aux)){
                 filteredPokemon.add(aux)
             }
         }
-    }
-
-    fun clearList(){
-        filteredPokemon.clear()
     }
 }

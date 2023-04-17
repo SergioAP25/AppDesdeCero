@@ -10,9 +10,7 @@ interface PokemonApiClient {
     @GET("pokemon?limit=100000")
     suspend fun getAllPokemons(): Response<PokemonModel>
 
-    @GET("{url}")
-    suspend fun getAllPokemonsByName(@Path("url") url: String): Response<FilteredPokemonModel>
-
     @GET("pokemon/{name}")
-    suspend fun getDetailPokemon(@Path("name") name: String): Response<FilteredPokemonModel>
+    suspend fun getAllPokemonsByName(@Path("name") url: String): Response<FilteredPokemonModel>
+
 }

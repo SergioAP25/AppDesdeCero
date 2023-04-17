@@ -18,18 +18,11 @@ class PokemonService @Inject constructor(
         }
     }
 
-    suspend fun getPokemonsByName(url: String): FilteredPokemonModel?{
+    suspend fun getPokemonsByName(name: String): FilteredPokemonModel?{
         return withContext(Dispatchers.IO){
-            val response: Response<FilteredPokemonModel> = api.getAllPokemonsByName(url)
+            val response: Response<FilteredPokemonModel> = api.getAllPokemonsByName(name)
             response.body()
         }
     }
 
-    suspend fun getDetailPokemonByName(name: String): FilteredPokemonModel?{
-        return withContext(Dispatchers.IO){
-            val response: Response<FilteredPokemonModel> = api.getDetailPokemon(name)
-
-            response.body()
-        }
-    }
 }
