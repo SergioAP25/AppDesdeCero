@@ -1,12 +1,15 @@
 package com.sergio.appdesdecero.domain.model
 
-import com.sergio.appdesdecero.data.model.FilteredPokemonModel
-import com.sergio.appdesdecero.data.model.PokemonResults
-import com.sergio.appdesdecero.data.model.Sprites
+import com.sergio.appdesdecero.data.model.*
 
 data class FilteredPokemon(
     val name: String,
-    val sprites: Sprites
+    val species: Species,
+    val sprites: Sprites,
+    val stats: List<Stats>,
+    val types: List<Types>,
+    val weight: Int
 )
 
-fun FilteredPokemonModel.toDomain() = FilteredPokemon(name, sprites)
+fun FilteredPokemonModel.toDomain() = FilteredPokemon(name, species, sprites,
+    stats, types, weight)
