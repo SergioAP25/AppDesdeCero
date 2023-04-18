@@ -11,6 +11,7 @@ import com.sergio.appdesdecero.domain.model.FilteredPokemon
 import com.sergio.appdesdecero.domain.model.Pokemon
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
@@ -18,34 +19,23 @@ class PokemonViewModel @Inject constructor(
     val getPokemons: GetPokemons,
     val getPokemonsByName: GetPokemonsByName
 ): ViewModel() {
-    val pokemonModel = MutableLiveData<MutableList<FilteredPokemon>?>()
+    var pokemonModel = MutableLiveData<List<FilteredPokemon>>()
     val isLoading = MutableLiveData<Boolean>()
-    var filteredPokemon: MutableList<FilteredPokemon> = mutableListOf<FilteredPokemon>()
+
 
     fun onCreate(pokemonName: String) {
-        filteredPokemon.clear()
         viewModelScope.launch {
+            var time = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
+            Log.v("TIEMPO", time.toString())
             isLoading.postValue(true)
-
-            val result = getPokemons()?.results?.filter {
-                it.name.contains(pokemonName) }
-
-            getFilteredPokemon(result)
-
-            if(result!=null){
-                pokemonModel.postValue(filteredPokemon)
-                isLoading.postValue(false)
+            if(time in 18..20){
+                getPokemons()
             }
-        }
-    }
 
-    suspend fun getFilteredPokemon(list: List<PokemonResults>?){
-        var aux: FilteredPokemon
-        list?.forEach {
-            aux = getPokemonsByName(it.url.substring(34))!!
-            if(!filteredPokemon.contains(aux)){
-                filteredPokemon.add(aux)
-            }
+            val pokemons = getPokemonsByName(pokemonName)
+            pokemonModel.postValue(pokemons)
+
+            isLoading.postValue(false)
         }
     }
 }

@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.sergio.appdesdecero.databinding.PokemonCellBinding
 import com.sergio.appdesdecero.domain.model.FilteredPokemon
 import com.squareup.picasso.Picasso
+import java.util.*
 
 class PokemonViewHolder(view: View): RecyclerView.ViewHolder(view) {
     private val binding = PokemonCellBinding.bind(view)

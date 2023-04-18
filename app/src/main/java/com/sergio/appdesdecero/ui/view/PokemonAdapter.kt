@@ -7,11 +7,11 @@ import com.sergio.appdesdecero.R
 import com.sergio.appdesdecero.domain.model.FilteredPokemon
 
 class PokemonAdapter(
-    var pokemonData: MutableList<FilteredPokemon> = mutableListOf(),
+    var pokemonData: List<FilteredPokemon> = emptyList(),
     private val onItemSelected:(String)->Unit
 ): RecyclerView.Adapter<PokemonViewHolder>(){
 
-    fun setData(data: MutableList<FilteredPokemon>) {
+    fun setData(data: List<FilteredPokemon>) {
         pokemonData = data
         notifyDataSetChanged()
     }

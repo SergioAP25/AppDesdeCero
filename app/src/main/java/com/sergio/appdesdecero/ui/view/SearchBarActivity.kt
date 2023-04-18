@@ -38,16 +38,14 @@ class SearchBarActivity: AppCompatActivity() {
         binding.searchbar.setOnQueryTextListener(object:
             SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(query: String?): Boolean {
-                pokemonViewModel.onCreate(query.orEmpty())
-                pokemonViewModel.pokemonModel.observe(context, Observer {pokemon ->
-                    if (pokemon != null) {
-                        adapter.setData(pokemon)
-                    }
-                })
                 return false
             }
 
-            override fun onQueryTextChange(newText: String?): Boolean {
+            override fun onQueryTextChange(query: String?): Boolean {
+                pokemonViewModel.onCreate(query.orEmpty())
+                pokemonViewModel.pokemonModel.observe(context, Observer {pokemon ->
+                    adapter.setData(pokemon)
+                })
                 return false
             }
         })
