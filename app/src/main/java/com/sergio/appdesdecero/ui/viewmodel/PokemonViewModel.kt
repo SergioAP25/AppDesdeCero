@@ -28,7 +28,7 @@ class PokemonViewModel @Inject constructor(
             var time = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
             Log.v("TIEMPO", time.toString())
             isLoading.postValue(true)
-            if(time in 18..20){
+            if(time in 24..24){
                 getPokemons()
             }
 

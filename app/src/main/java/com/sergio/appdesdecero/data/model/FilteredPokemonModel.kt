@@ -8,6 +8,7 @@ data class FilteredPokemonModel (
     @SerializedName("sprites") val sprites: Sprites,
     @SerializedName("stats") val stats: List<Stats>,
     @SerializedName("types") val types: List<Types>,
+    @SerializedName("height") val height: Int,
     @SerializedName("weight") val weight: Int
 )
 

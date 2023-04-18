@@ -38,6 +38,11 @@ class PokemonRepository @Inject constructor(
         return response.toDomain()
     }
 
+    suspend fun getFavoritePokemonFromDatabase(name: String): List<FilteredPokemon> {
+        val response = pokemonDao.getFavoritePokemon(name)
+        return response.map{ it.toDomain() }
+    }
+
     suspend fun insertPokemons(pokemon :List<PokemonEntity>){
         pokemonDao.insertAll(pokemon)
     }

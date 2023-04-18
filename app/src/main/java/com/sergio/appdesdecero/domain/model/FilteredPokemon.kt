@@ -9,10 +9,11 @@ data class FilteredPokemon(
     val sprites: Sprites,
     val stats: List<Stats>,
     val types: List<Types>,
+    val height: Int,
     val weight: Int
 )
 
 fun FilteredPokemonModel.toDomain() = FilteredPokemon(name, species, sprites,
-    stats, types, weight)
+    stats, types, height, weight)
 
-fun PokemonEntity.toDomain() = FilteredPokemon(name, species, sprites, stats, types, weight)
+fun PokemonEntity.toDomain() = FilteredPokemon(name, species, sprites, stats, types, height, weight)

@@ -21,8 +21,9 @@ data class PokemonEntity (
     @ColumnInfo(name = "sprites", defaultValue = DEFAULT_SPRITE) val sprites: Sprites,
     @ColumnInfo(name = "stats") val stats: List<Stats>,
     @ColumnInfo(name = "types") val types: List<Types>,
+    @ColumnInfo(name = "height") val height: Int,
     @ColumnInfo(name = "weight") val weight: Int,
     )
 
 fun FilteredPokemon.toDatabase() = PokemonEntity(name = name, species = species, sprites = sprites,
-    stats = stats, types = types, weight = weight)
+    stats = stats, types = types, height = height, weight = weight)
