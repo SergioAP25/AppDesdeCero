@@ -1,4 +1,4 @@
-package com.sergio.appdesdecero.ui.view
+package com.sergio.appdesdecero.ui.view.recyclerview
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

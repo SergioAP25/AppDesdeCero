@@ -1,4 +1,4 @@
-package com.sergio.appdesdecero.ui.view
+package com.sergio.appdesdecero.ui.view.recyclerview
 
 import android.util.Log
 import android.view.View
@@ -19,22 +19,21 @@ class PokemonViewHolder(view: View): RecyclerView.ViewHolder(view) {
             onItemSelected(pokemon.name)
        }
        bindTypes(pokemon)
+
+       binding.boton.setOnClickListener {
+
+       }
    }
 
 
     private fun bindTypes(pokemon: FilteredPokemon){
         binding.pokemontype1.setImageResource(0)
         binding.pokemontype2.setImageResource(0)
-        if (pokemon?.types?.size == 1) {
+        if (pokemon.types.size == 1) {
             binding.pokemontype1.setImageResource(getTypeImage(pokemon.types.get(0).type.name))
-        } else if (pokemon?.types?.size == 2) {
+        } else if (pokemon.types.size == 2) {
             binding.pokemontype1.setImageResource(getTypeImage(pokemon.types.get(0).type.name))
             binding.pokemontype2.setImageResource(getTypeImage(pokemon.types.get(1).type.name))
-        } else {
-            binding.pokemontype1.setImageResource(0)
-            Log.v("CHECK", "CASO MAYOR DE 2?????????")
-            Log.v("CHECK", pokemon.name)
-            Log.v("CHECK", pokemon.types.size.toString())
         }
     }
     private fun getTypeImage(type: String): Int {

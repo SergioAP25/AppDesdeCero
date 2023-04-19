@@ -52,6 +52,10 @@ class DetailActivity: AppCompatActivity() {
             binding.height1.text = (pokemon?.height?.toFloat()?.div(10)).toString()+" m"
             binding.weight1.text = (pokemon?.weight?.toFloat()?.div(10)).toString()+" kg"
 
+            binding.boton.setOnClickListener {
+
+            }
+
         })
     }
 
