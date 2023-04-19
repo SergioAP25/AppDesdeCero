@@ -8,7 +8,9 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
+import com.sergio.appdesdecero.R
 import com.sergio.appdesdecero.databinding.DetailActivityBinding
+import com.sergio.appdesdecero.domain.model.FilteredPokemon
 import com.sergio.appdesdecero.ui.viewmodel.PokemonDetailViewModel
 import com.sergio.appdesdecero.ui.viewmodel.PokemonViewModel
 import com.squareup.picasso.Picasso
@@ -45,13 +47,7 @@ class DetailActivity: AppCompatActivity() {
             updateStatBar(binding.specialDefense, pokemon?.stats?.get(4)?.base_stat)
             updateStatBar(binding.speed, pokemon?.stats?.get(5)?.base_stat)
 
-            if (pokemon?.types?.size==1){
-                binding.type1.text = pokemon?.types?.get(0)?.type?.name
-            }
-            else{
-                binding.type1.text = pokemon?.types?.get(0)?.type?.name
-                binding.type2.text = pokemon?.types?.get(1)?.type?.name
-            }
+            bindTypes(pokemon)
 
             binding.height1.text = (pokemon?.height?.toFloat()?.div(10)).toString()+" m"
             binding.weight1.text = (pokemon?.weight?.toFloat()?.div(10)).toString()+" kg"
@@ -59,6 +55,42 @@ class DetailActivity: AppCompatActivity() {
         })
     }
 
+    private fun bindTypes(pokemon: FilteredPokemon?){
+        binding.type1.setImageResource(0)
+        binding.type2.setImageResource(0)
+        if (pokemon?.types?.size==1){
+            binding.type1.setImageResource(getTypeImage(pokemon.types.get(0).type.name))
+        }
+        else{
+            binding.type1.setImageResource(getTypeImage(pokemon?.types?.get(0)?.type?.name))
+            binding.type2.setImageResource(getTypeImage(pokemon?.types?.get(1)?.type?.name))
+        }
+    }
+
+    private fun getTypeImage(type: String?): Int {
+        var result: Int = 0
+        when(type) {
+            "bug" -> result = R.drawable.bug
+            "dark" -> result = R.drawable.dark
+            "dragon" -> result = R.drawable.dragon
+            "electric" -> result = R.drawable.electric
+            "fairy" -> result = R.drawable.fairy
+            "fighting" -> result = R.drawable.fighting
+            "fire" -> result = R.drawable.fire
+            "flying" -> result = R.drawable.flying
+            "ghost" -> result = R.drawable.ghost
+            "grass" -> result = R.drawable.grass
+            "ground" -> result = R.drawable.ground
+            "ice" -> result = R.drawable.ice
+            "normal" -> result = R.drawable.normal
+            "poison" -> result = R.drawable.poison
+            "psychic" -> result = R.drawable.psychic
+            "rock" -> result = R.drawable.rock
+            "steel" -> result = R.drawable.steel
+            "water" -> result = R.drawable.water
+        }
+        return result
+    }
 
     private fun updateStatBar(view: View, stat: Int?){
         val params = view.layoutParams
