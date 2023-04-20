@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -41,6 +42,7 @@ class SearchFragment : Fragment() {
         binding.rvPokemon.setHasFixedSize(true)
         binding.rvPokemon.layoutManager = LinearLayoutManager(context)
         binding.rvPokemon.adapter = adapter
+        observer("")
         binding.searchbar.setOnQueryTextListener(object:
             SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(query: String?): Boolean {
@@ -48,12 +50,25 @@ class SearchFragment : Fragment() {
             }
 
             override fun onQueryTextChange(query: String?): Boolean {
-                pokemonViewModel.onCreate(query.orEmpty())
-                pokemonViewModel.pokemonModel.observe(viewLifecycleOwner, Observer {pokemon ->
-                    adapter.setData(pokemon)
-                })
+                observer(query.orEmpty())
                 return false
             }
+        })
+    }
+
+    private fun observer(query: String){
+        pokemonViewModel.isLoading.observe(viewLifecycleOwner, Observer {isLoading ->
+            if(isLoading){
+                adapter.setData(emptyList())
+                binding.bar.setVisibility(View.VISIBLE)
+            }
+            else{
+                binding.bar.setVisibility(View.INVISIBLE)
+            }
+        })
+        pokemonViewModel.onCreate(query)
+        pokemonViewModel.pokemonModel.observe(viewLifecycleOwner, Observer {pokemon ->
+            adapter.setData(pokemon)
         })
     }
 

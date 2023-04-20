@@ -32,7 +32,9 @@ class PokemonViewModel @Inject constructor(
     fun onCreate(pokemonName: String) {
         viewModelScope.launch {
             isLoading.postValue(true)
-
+            Log.v("UIU", "COMIENZO DE LA ACTUALIZACIÓN")
+            getPokemons()
+            Log.v("UIU", "FINISHED")
             val pokemons = getPokemonsByName(pokemonName)
             pokemonModel.postValue(pokemons)
             isLoading.postValue(false)
@@ -42,7 +44,6 @@ class PokemonViewModel @Inject constructor(
     fun favorite(pokemonName: String){
         viewModelScope.launch {
             isLoading.postValue(true)
-
             val pokemons = getFavoritePokemon(pokemonName)
             favoriteModel.postValue(pokemons)
             isLoading.postValue(false)

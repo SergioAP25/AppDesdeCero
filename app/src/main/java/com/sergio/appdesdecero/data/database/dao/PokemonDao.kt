@@ -17,6 +17,9 @@ interface PokemonDao {
     @Query("SELECT * FROM pokemon p, favorites f WHERE p.name = f.pokemonName AND name LIKE '%'||:name||'%'")
     suspend fun getFavoritePokemonByName(name: String):List<PokemonEntity>
 
+    @Query("SELECT (SELECT COUNT(*) FROM pokemon WHERE name = :name) == 1")
+    suspend fun exists(name: String): Boolean
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(quotes:List<PokemonEntity>)
 

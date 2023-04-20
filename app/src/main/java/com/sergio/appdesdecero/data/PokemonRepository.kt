@@ -45,6 +45,10 @@ class PokemonRepository @Inject constructor(
         return response.map { it.toDomain() }
     }
 
+    suspend fun exists(name: String): Boolean{
+        return pokemonDao.exists(name)
+    }
+
     suspend fun insertPokemons(pokemon :List<PokemonEntity>){
         pokemonDao.insertAll(pokemon)
     }

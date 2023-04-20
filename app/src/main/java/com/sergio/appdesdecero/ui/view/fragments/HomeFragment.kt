@@ -36,6 +36,7 @@ class HomeFragment : Fragment() {
         binding.rvFavorites.setHasFixedSize(true)
         binding.rvFavorites.layoutManager = LinearLayoutManager(context)
         binding.rvFavorites.adapter = adapter
+        observer("")
         binding.favoritesSearchbar.setOnQueryTextListener(object:
             SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(query: String?): Boolean {
@@ -43,12 +44,24 @@ class HomeFragment : Fragment() {
             }
 
             override fun onQueryTextChange(query: String?): Boolean {
-                pokemonViewModel.favorite(query.orEmpty())
-                pokemonViewModel.favoriteModel.observe(viewLifecycleOwner, Observer {pokemon ->
-                    adapter.setData(pokemon)
-                })
+                observer(query.orEmpty())
                 return false
             }
+        })
+    }
+
+    private fun observer(query: String){
+        pokemonViewModel.isLoading.observe(viewLifecycleOwner, Observer {isLoading ->
+            if(isLoading){
+                binding.favoritesProgessbar.setVisibility(View.VISIBLE)
+            }
+            else{
+                binding.favoritesProgessbar.setVisibility(View.INVISIBLE)
+            }
+        })
+        pokemonViewModel.favorite(query)
+        pokemonViewModel.favoriteModel.observe(viewLifecycleOwner, Observer {pokemon ->
+            adapter.setData(pokemon)
         })
     }
 
