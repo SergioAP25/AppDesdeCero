@@ -7,7 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.sergio.appdesdecero.R
 import com.sergio.appdesdecero.databinding.FragmentOptionsBinding
-
+import dagger.hilt.android.AndroidEntryPoint
+@AndroidEntryPoint
 class OptionsFragment : Fragment() {
 
     private lateinit var binding: FragmentOptionsBinding

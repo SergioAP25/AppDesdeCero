@@ -14,9 +14,6 @@ interface PokemonDao {
     @Query("SELECT * FROM pokemon WHERE name = :name")
     suspend fun getDetailPokemon(name: String):PokemonEntity
 
-    @Query("SELECT * FROM pokemon WHERE name = :name AND favorite = true")
-    suspend fun getFavoritePokemon(name: String):List<PokemonEntity>
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(quotes:List<PokemonEntity>)
 

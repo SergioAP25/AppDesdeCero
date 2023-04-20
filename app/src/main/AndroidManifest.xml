@@ -24,11 +24,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.view.SearchBarActivity"
+            android:name=".ui.view.DetailActivity"
             android:exported="false">
         </activity>
         <activity
-            android:name=".ui.view.DetailActivity"
+            android:name=".ui.view.FullScreenImageActivity"
             android:exported="false">
         </activity>
     </application>

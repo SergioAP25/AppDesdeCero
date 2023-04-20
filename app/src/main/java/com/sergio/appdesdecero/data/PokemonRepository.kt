@@ -1,6 +1,7 @@
 package com.sergio.appdesdecero.data
 
 import android.util.Log
+import com.sergio.appdesdecero.data.database.dao.FavoritesDao
 import com.sergio.appdesdecero.data.database.dao.PokemonDao
 import com.sergio.appdesdecero.data.database.entities.PokemonEntity
 import com.sergio.appdesdecero.data.model.FilteredPokemonModel
@@ -16,7 +17,8 @@ import javax.inject.Inject
 
 class PokemonRepository @Inject constructor(
     private val api: PokemonService,
-    private val pokemonDao: PokemonDao
+    private val pokemonDao: PokemonDao,
+    private val favoritesDao: FavoritesDao
 ) {
     suspend fun getAllPokemonsFromApi(): Pokemon?{
         val response: PokemonModel? = api.getPokemons()
@@ -38,11 +40,6 @@ class PokemonRepository @Inject constructor(
         return response.toDomain()
     }
 
-    suspend fun getFavoritePokemonFromDatabase(name: String): List<FilteredPokemon> {
-        val response = pokemonDao.getFavoritePokemon(name)
-        return response.map{ it.toDomain() }
-    }
-
     suspend fun insertPokemons(pokemon :List<PokemonEntity>){
         pokemonDao.insertAll(pokemon)
     }
@@ -53,6 +50,18 @@ class PokemonRepository @Inject constructor(
 
     suspend fun isDatabaseEmpty(): Boolean{
         return pokemonDao.isEmpty()
+    }
+
+    suspend fun addFavorite(name: String){
+        favoritesDao.addFavorite(name)
+    }
+
+    suspend fun removeFavorite(name: String){
+        favoritesDao.removeFavorite(name)
+    }
+
+    suspend fun isFavority(name: String): Boolean{
+        return favoritesDao.isFavorite(name)
     }
 
 

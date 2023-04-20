@@ -14,7 +14,6 @@ const val DEFAULT_SPRITE = "https://raw.githubusercontent.com/PokeAPI/sprites/ma
 
 @Entity(tableName = "pokemon")
 data class PokemonEntity (
-    @ColumnInfo(name = "favorite") val favorite: Boolean = false,
     @PrimaryKey
     @ColumnInfo(name = "name") val name: String,
     @ColumnInfo(name = "species") val species: Species,

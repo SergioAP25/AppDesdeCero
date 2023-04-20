@@ -1,5 +1,6 @@
 package com.sergio.appdesdecero.ui.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.util.Log
@@ -15,6 +16,9 @@ import com.sergio.appdesdecero.ui.viewmodel.PokemonDetailViewModel
 import com.sergio.appdesdecero.ui.viewmodel.PokemonViewModel
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
 
 @AndroidEntryPoint
@@ -52,8 +56,29 @@ class DetailActivity: AppCompatActivity() {
             binding.height1.text = (pokemon?.height?.toFloat()?.div(10)).toString()+" m"
             binding.weight1.text = (pokemon?.weight?.toFloat()?.div(10)).toString()+" kg"
 
-            binding.boton.setOnClickListener {
+            binding.pokemonImage.setOnClickListener {
+                navigateToFullImage(pokemon?.sprites?.front_default!!)
+            }
 
+            CoroutineScope(Dispatchers.IO).launch {
+                if(!pokemonDetailViewModel.isFavoritePokemon(pokemon!!.name)){
+                    binding.boton.setBackgroundResource(R.drawable.baseline_star_border_24)
+                }
+                else{
+                    binding.boton.setBackgroundResource(R.drawable.baseline_star_24)
+                }
+            }
+            binding.boton.setOnClickListener {
+                CoroutineScope(Dispatchers.IO).launch {
+                    if(!pokemonDetailViewModel.isFavoritePokemon(pokemon!!.name)){
+                        pokemonDetailViewModel.addFavoritePokemon(pokemon.name)
+                        binding.boton.setBackgroundResource(R.drawable.baseline_star_24)
+                    }
+                    else{
+                        pokemonDetailViewModel.removeFavoritePokemon(pokemon.name)
+                        binding.boton.setBackgroundResource(R.drawable.baseline_star_border_24)
+                    }
+                }
             }
 
         })
@@ -105,5 +130,11 @@ class DetailActivity: AppCompatActivity() {
     private fun pxToDp(px :Float?): Int{
         return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, px!!, resources.displayMetrics)
             .roundToInt()
+    }
+
+    private fun navigateToFullImage(image: String){
+        val intent = Intent(context, FullScreenImageActivity::class.java)
+        intent.putExtra(FullScreenImageActivity.EXTRA_IMAGE, image)
+        startActivity(intent)
     }
 }

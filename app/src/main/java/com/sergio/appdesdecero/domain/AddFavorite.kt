@@ -4,11 +4,10 @@ import com.sergio.appdesdecero.data.PokemonRepository
 import com.sergio.appdesdecero.domain.model.FilteredPokemon
 import javax.inject.Inject
 
-class GetFavoritePokemon @Inject constructor(
+class AddFavorite @Inject constructor(
     private val repository: PokemonRepository
-){
-    suspend operator fun invoke(name: String): List<FilteredPokemon> {
-        val pokemons = repository.getFavoritePokemonFromDatabase(name)
-        return pokemons
+) {
+    suspend operator fun invoke(name: String) {
+        repository.addFavorite(name)
     }
 }

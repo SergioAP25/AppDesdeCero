@@ -7,22 +7,49 @@ import com.sergio.appdesdecero.R
 import com.sergio.appdesdecero.databinding.PokemonCellBinding
 import com.sergio.appdesdecero.domain.model.FilteredPokemon
 import com.squareup.picasso.Picasso
-import java.util.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlin.reflect.KSuspendFunction1
 
 class PokemonViewHolder(view: View): RecyclerView.ViewHolder(view) {
     private val binding = PokemonCellBinding.bind(view)
 
-   fun bind(pokemon: FilteredPokemon, onItemSelected: (String) -> Unit){
+   fun bind(
+       pokemon: FilteredPokemon, onItemSelected: (String) -> Unit, addFavorite: KSuspendFunction1<String, Unit>,
+       removeFavorite: KSuspendFunction1<String, Unit>, isFavorite: KSuspendFunction1<String, Boolean>
+   ){
        Picasso.get().load(pokemon.sprites.front_default).into(binding.pokemonimage)
        binding.pokemonname.text = pokemon.name
        binding.root.setOnClickListener{
             onItemSelected(pokemon.name)
        }
+
        bindTypes(pokemon)
 
-       binding.boton.setOnClickListener {
-
+       CoroutineScope(Dispatchers.IO).launch {
+           if(!isFavorite(pokemon.name)){
+                binding.boton.setBackgroundResource(R.drawable.baseline_star_border_24)
+           }
+           else{
+               binding.boton.setBackgroundResource(R.drawable.baseline_star_24)
+           }
        }
+       binding.boton.setOnClickListener {
+           CoroutineScope(Dispatchers.IO).launch {
+               if(!isFavorite(pokemon.name)){
+                   Log.v("FAVORITE", "NO ES FAV")
+                   addFavorite(pokemon.name)
+                   binding.boton.setBackgroundResource(R.drawable.baseline_star_24)
+               }
+               else{
+                   Log.v("FAVORITE", "ES FAV")
+                   removeFavorite(pokemon.name)
+                   binding.boton.setBackgroundResource(R.drawable.baseline_star_border_24)
+               }
+           }
+       }
+
    }
 
 
