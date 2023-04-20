@@ -3,14 +3,14 @@
 
     <item
         android:id="@+id/homeFragment"
-        android:icon="@drawable/baseline_home_24"
-        android:title="Home">
+        android:icon="@drawable/baseline_star_24"
+        android:title="Favorites">
     </item>
 
     <item
         android:id="@+id/searchFragment"
-        android:icon="@drawable/baseline_search_24"
-        android:title="Search">
+        android:icon="@drawable/pokedex"
+        android:title="Pokedex">
     </item>
 
     <item

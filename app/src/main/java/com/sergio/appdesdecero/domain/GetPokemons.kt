@@ -15,7 +15,8 @@ class GetPokemons @Inject constructor(
     private var apiList: List<PokemonResults> = emptyList()
     suspend operator fun invoke(){
         apiList = repository.getAllPokemonsFromApi()?.results!!
-        if(!repository.exists(capitalizeName(apiList.last().name))){
+
+        if(!apiList.isEmpty() && !repository.exists(capitalizeName(apiList.last().name))){
             addPokemonsToList()
             capitalizeList()
             repository.insertPokemons(pokemonList.map { it.toDatabase() })
@@ -25,7 +26,6 @@ class GetPokemons @Inject constructor(
     private suspend fun addPokemonsToList(){
         for (i in apiList.lastIndex downTo 0) {
            if(!repository.exists(apiList[i].name)){
-               Log.v("???",apiList[i].name)
                pokemonList.add(repository.getAllPokemonsByNameFromApi(apiList[i].url.substring(34))!!)
            }
            else{

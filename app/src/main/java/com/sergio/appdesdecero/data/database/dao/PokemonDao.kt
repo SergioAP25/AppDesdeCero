@@ -21,7 +21,7 @@ interface PokemonDao {
     suspend fun exists(name: String): Boolean
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAll(quotes:List<PokemonEntity>)
+    suspend fun insertAll(pokemons :List<PokemonEntity>)
 
     @Query("DELETE FROM pokemon")
     suspend fun deleteAllPokemons()

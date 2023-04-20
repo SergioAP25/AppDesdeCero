@@ -53,14 +53,6 @@ class PokemonRepository @Inject constructor(
         pokemonDao.insertAll(pokemon)
     }
 
-    suspend fun clearDatabase(){
-        pokemonDao.deleteAllPokemons()
-    }
-
-    suspend fun isDatabaseEmpty(): Boolean{
-        return pokemonDao.isEmpty()
-    }
-
     suspend fun addFavorite(name: String){
         favoritesDao.addFavorite(name)
     }

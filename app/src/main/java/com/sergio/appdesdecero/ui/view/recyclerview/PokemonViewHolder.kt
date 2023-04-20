@@ -49,8 +49,6 @@ class PokemonViewHolder(view: View): RecyclerView.ViewHolder(view) {
        }
 
    }
-
-
     private fun bindTypes(pokemon: FilteredPokemon){
         binding.pokemontype1.setImageResource(0)
         binding.pokemontype2.setImageResource(0)

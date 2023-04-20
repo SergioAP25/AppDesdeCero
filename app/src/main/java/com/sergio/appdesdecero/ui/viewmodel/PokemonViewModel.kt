@@ -31,10 +31,9 @@ class PokemonViewModel @Inject constructor(
 
     fun onCreate(pokemonName: String) {
         viewModelScope.launch {
+            Log.v("UIU", "HOLA")
             isLoading.postValue(true)
-            Log.v("UIU", "COMIENZO DE LA ACTUALIZACIÓN")
             getPokemons()
-            Log.v("UIU", "FINISHED")
             val pokemons = getPokemonsByName(pokemonName)
             pokemonModel.postValue(pokemons)
             isLoading.postValue(false)
