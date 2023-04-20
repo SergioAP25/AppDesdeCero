@@ -12,10 +12,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 class PokemonDetailViewModel @Inject constructor(
-    val getDetailPokemon: GetDetailPokemon,
-    val addFavorite: AddFavorite,
-    val removeFavorite: RemoveFavorite,
-    val isFavorite: IsFavorite
+    private val getDetailPokemon: GetDetailPokemon,
+    private val addFavorite: AddFavorite,
+    private val removeFavorite: RemoveFavorite,
+    private  val isFavorite: IsFavorite
 ): ViewModel(){
     val pokemonModel = MutableLiveData<FilteredPokemon?>()
     val isLoading = MutableLiveData<Boolean>()

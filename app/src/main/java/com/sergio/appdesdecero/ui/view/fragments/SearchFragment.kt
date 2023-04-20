@@ -66,6 +66,10 @@ class SearchFragment : Fragment() {
                 binding.bar.setVisibility(View.INVISIBLE)
             }
         })
+        if(pokemonViewModel.scope!=null){
+            pokemonViewModel.scope!!.cancel()
+        }
+
         pokemonViewModel.onCreate(query)
         pokemonViewModel.pokemonModel.observe(viewLifecycleOwner, Observer {pokemon ->
             adapter.setData(pokemon)
