@@ -40,12 +40,17 @@ class PokemonRepository @Inject constructor(
         return response.toDomain()
     }
 
+    suspend fun getFavoritePokemonsByName(name: String): List<FilteredPokemon> {
+        val response = pokemonDao.getFavoritePokemonByName(name)
+        return response.map { it.toDomain() }
+    }
+
     suspend fun insertPokemons(pokemon :List<PokemonEntity>){
         pokemonDao.insertAll(pokemon)
     }
 
     suspend fun clearDatabase(){
-        pokemonDao.deleteAllQuotes()
+        pokemonDao.deleteAllPokemons()
     }
 
     suspend fun isDatabaseEmpty(): Boolean{
@@ -63,6 +68,4 @@ class PokemonRepository @Inject constructor(
     suspend fun isFavority(name: String): Boolean{
         return favoritesDao.isFavorite(name)
     }
-
-
 }

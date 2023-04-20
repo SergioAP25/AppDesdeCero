@@ -38,12 +38,10 @@ class PokemonViewHolder(view: View): RecyclerView.ViewHolder(view) {
        binding.boton.setOnClickListener {
            CoroutineScope(Dispatchers.IO).launch {
                if(!isFavorite(pokemon.name)){
-                   Log.v("FAVORITE", "NO ES FAV")
                    addFavorite(pokemon.name)
                    binding.boton.setBackgroundResource(R.drawable.baseline_star_24)
                }
                else{
-                   Log.v("FAVORITE", "ES FAV")
                    removeFavorite(pokemon.name)
                    binding.boton.setBackgroundResource(R.drawable.baseline_star_border_24)
                }

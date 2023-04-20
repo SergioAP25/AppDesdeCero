@@ -31,6 +31,11 @@ class HomeFragment : Fragment() {
     }
 
     private fun initUI(){
+        adapter = PokemonAdapter(emptyList(), this::navigatetoDetail, this::addFavorite,
+            this::removeFavorite, this::isFavorite)
+        binding.rvFavorites.setHasFixedSize(true)
+        binding.rvFavorites.layoutManager = LinearLayoutManager(context)
+        binding.rvFavorites.adapter = adapter
         binding.favoritesSearchbar.setOnQueryTextListener(object:
             SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(query: String?): Boolean {
@@ -38,8 +43,8 @@ class HomeFragment : Fragment() {
             }
 
             override fun onQueryTextChange(query: String?): Boolean {
-                pokemonViewModel.onCreate(query.orEmpty())
-                pokemonViewModel.pokemonModel.observe(viewLifecycleOwner, Observer {pokemon ->
+                pokemonViewModel.favorite(query.orEmpty())
+                pokemonViewModel.favoriteModel.observe(viewLifecycleOwner, Observer {pokemon ->
                     adapter.setData(pokemon)
                 })
                 return false
@@ -52,4 +57,16 @@ class HomeFragment : Fragment() {
         intent.putExtra(DetailActivity.EXTRA_NAME, name)
         startActivity(intent)
     }
+    private suspend fun addFavorite(name: String){
+        pokemonViewModel.addFavoritePokemon(name)
+    }
+
+    private suspend fun removeFavorite(name: String){
+        pokemonViewModel.removeFavoritePokemon(name)
+    }
+
+    private suspend fun isFavorite(name: String): Boolean{
+        return pokemonViewModel.isFavoritePokemon(name)
+    }
+
 }

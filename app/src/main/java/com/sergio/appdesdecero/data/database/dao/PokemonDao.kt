@@ -14,11 +14,14 @@ interface PokemonDao {
     @Query("SELECT * FROM pokemon WHERE name = :name")
     suspend fun getDetailPokemon(name: String):PokemonEntity
 
+    @Query("SELECT * FROM pokemon p, favorites f WHERE p.name = f.pokemonName AND name LIKE '%'||:name||'%'")
+    suspend fun getFavoritePokemonByName(name: String):List<PokemonEntity>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(quotes:List<PokemonEntity>)
 
     @Query("DELETE FROM pokemon")
-    suspend fun deleteAllQuotes()
+    suspend fun deleteAllPokemons()
 
     @Query("SELECT (SELECT COUNT(*) FROM pokemon) == 0")
     fun isEmpty(): Boolean

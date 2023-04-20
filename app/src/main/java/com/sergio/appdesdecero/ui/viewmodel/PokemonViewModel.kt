@@ -19,23 +19,32 @@ import javax.inject.Inject
 class PokemonViewModel @Inject constructor(
     val getPokemons: GetPokemons,
     val getPokemonsByName: GetPokemonsByName,
+    val getFavoritePokemon: GetFavoritePokemon,
     val addFavorite: AddFavorite,
     val removeFavorite: RemoveFavorite,
     val isFavorite: IsFavorite
 ): ViewModel() {
     var pokemonModel = MutableLiveData<List<FilteredPokemon>>()
+    var favoriteModel = MutableLiveData<List<FilteredPokemon>>()
     val isLoading = MutableLiveData<Boolean>()
 
 
     fun onCreate(pokemonName: String) {
         viewModelScope.launch {
-            var time = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
             isLoading.postValue(true)
-            if(time in 24..24){
-                getPokemons()
-            }
+
             val pokemons = getPokemonsByName(pokemonName)
             pokemonModel.postValue(pokemons)
+            isLoading.postValue(false)
+        }
+    }
+
+    fun favorite(pokemonName: String){
+        viewModelScope.launch {
+            isLoading.postValue(true)
+
+            val pokemons = getFavoritePokemon(pokemonName)
+            favoriteModel.postValue(pokemons)
             isLoading.postValue(false)
         }
     }
