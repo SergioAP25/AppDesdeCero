@@ -46,7 +46,7 @@ class PokemonViewModel @Inject constructor(
     }
 
     fun favorite(pokemonName: String){
-        viewModelScope.launch {
+        scope = viewModelScope.launch {
             isLoading.postValue(true)
             val pokemons = getFavoritePokemon(pokemonName)
             favoriteModel.postValue(pokemons)

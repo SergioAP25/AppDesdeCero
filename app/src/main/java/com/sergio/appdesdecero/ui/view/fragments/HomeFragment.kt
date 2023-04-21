@@ -2,6 +2,7 @@ package com.sergio.appdesdecero.ui.view.fragments
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.sergio.appdesdecero.R
 import com.sergio.appdesdecero.databinding.FragmentHomeBinding
 import com.sergio.appdesdecero.ui.view.DetailActivity
 import com.sergio.appdesdecero.ui.view.recyclerview.PokemonAdapter
@@ -30,7 +32,13 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
+    override fun onResume() {
+        super.onResume()
+        adapter.notifyDataSetChanged()
+    }
+
     private fun initUI(){
+        configSwipe()
         adapter = PokemonAdapter(emptyList(), this::navigatetoDetail, this::addFavorite,
             this::removeFavorite, this::isFavorite)
         binding.rvFavorites.setHasFixedSize(true)
@@ -50,15 +58,31 @@ class HomeFragment : Fragment() {
         })
     }
 
+    private fun configSwipe(){
+        binding.favoritesSwipe.setOnRefreshListener {
+            parentFragmentManager.beginTransaction()
+                .detach(this).commit()
+            parentFragmentManager.beginTransaction()
+                .attach(this).commit()
+            binding.favoritesSwipe.isRefreshing = false
+        }
+    }
+
     private fun observer(query: String){
         pokemonViewModel.isLoading.observe(viewLifecycleOwner, Observer {isLoading ->
             if(isLoading){
+                adapter.setData(emptyList())
                 binding.favoritesProgessbar.setVisibility(View.VISIBLE)
             }
             else{
                 binding.favoritesProgessbar.setVisibility(View.INVISIBLE)
             }
         })
+
+        if(pokemonViewModel.scope!=null){
+            pokemonViewModel.scope!!.cancel()
+        }
+
         pokemonViewModel.favorite(query)
         pokemonViewModel.favoriteModel.observe(viewLifecycleOwner, Observer {pokemon ->
             adapter.setData(pokemon)

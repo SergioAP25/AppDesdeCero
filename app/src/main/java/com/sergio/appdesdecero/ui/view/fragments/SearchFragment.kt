@@ -35,6 +35,11 @@ class SearchFragment : Fragment() {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        adapter.notifyDataSetChanged()
+    }
+
 
     private fun initUI(){
         adapter = PokemonAdapter(emptyList(), this::navigatetoDetail, this::addFavorite,
@@ -66,6 +71,7 @@ class SearchFragment : Fragment() {
                 binding.bar.setVisibility(View.INVISIBLE)
             }
         })
+
         if(pokemonViewModel.scope!=null){
             pokemonViewModel.scope!!.cancel()
         }
