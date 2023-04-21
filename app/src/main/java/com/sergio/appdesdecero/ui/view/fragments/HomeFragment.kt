@@ -82,7 +82,7 @@ class HomeFragment : Fragment() {
         }
 
         pokemonViewModel.favoritePokemonSearch(query)
-        pokemonViewModel.favoriteModel.observe(viewLifecycleOwner, Observer {pokemon ->
+        pokemonViewModel.pokemonModel.observe(viewLifecycleOwner, Observer {pokemon ->
             adapter.setData(pokemon)
         })
     }

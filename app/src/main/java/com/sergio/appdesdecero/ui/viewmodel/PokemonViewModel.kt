@@ -22,7 +22,6 @@ class PokemonViewModel @Inject constructor(
     private val isFavorite: IsFavorite
 ): ViewModel() {
     var pokemonModel = MutableLiveData<List<FilteredPokemon>>()
-    var favoriteModel = MutableLiveData<List<FilteredPokemon>>()
     val isLoading = MutableLiveData<Boolean>()
     var scope: Job? = null
 
@@ -33,6 +32,7 @@ class PokemonViewModel @Inject constructor(
             getPokemons()
 
             val pokemons = typeFilteredSearch(pokemonName, types)
+
             pokemonModel.postValue(pokemons)
             isLoading.postValue(false)
         }
@@ -42,7 +42,7 @@ class PokemonViewModel @Inject constructor(
         scope = viewModelScope.launch {
             isLoading.postValue(true)
             val pokemons = getFavoritePokemon(pokemonName)
-            favoriteModel.postValue(pokemons)
+            pokemonModel.postValue(pokemons)
             isLoading.postValue(false)
         }
     }
