@@ -494,7 +494,7 @@ class SearchFragment : Fragment() {
     }
     private fun countSelectedButtons(): Int{
         var number = 0
-        for (i in 0 until buttonList.size - 1){
+        for (i in 0 until buttonList.size){
             if (buttonList[i].isSelected){
                 number++
             }
