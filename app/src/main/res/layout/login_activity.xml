@@ -9,6 +9,7 @@
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/email"
+        android:text="admin@gmail.com"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:hint="Email">
@@ -16,6 +17,8 @@
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/password"
+        android:text="admin25"
+        android:inputType="textPassword"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:hint="Contraseña">

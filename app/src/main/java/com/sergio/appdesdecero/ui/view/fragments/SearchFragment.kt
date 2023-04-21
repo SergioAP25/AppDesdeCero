@@ -51,6 +51,7 @@ class SearchFragment : Fragment() {
 
 
     private fun initUI(){
+        configSwipe()
         loadButtonState()
         initButtons()
         adapter = PokemonAdapter(emptyList(), this::navigatetoDetail, this::addFavorite,
@@ -71,6 +72,16 @@ class SearchFragment : Fragment() {
                 return false
             }
         })
+    }
+
+    private fun configSwipe(){
+        binding.searchSwipe.setOnRefreshListener {
+            parentFragmentManager.beginTransaction()
+                .detach(this).commit()
+            parentFragmentManager.beginTransaction()
+                .attach(this).commit()
+            binding.searchSwipe.isRefreshing = false
+        }
     }
 
     private fun observer(query: String){
