@@ -42,7 +42,6 @@ class PokemonViewModel @Inject constructor(
             pokemonModel.postValue(pokemons)
             isLoading.postValue(false)
         }
-
     }
 
     fun favorite(pokemonName: String){
