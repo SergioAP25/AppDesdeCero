@@ -30,7 +30,7 @@ class PokemonRepository @Inject constructor(
         return response?.toDomain()
     }
 
-    suspend fun getPokemonsFromDatabaseByName(name: String):List<FilteredPokemon>{
+    suspend fun getPokemonsFromDatabaseByName(name: String): List<FilteredPokemon>{
         val response = pokemonDao.getPokemonByName(name)
         return response.map { it.toDomain() }
     }
@@ -38,6 +38,16 @@ class PokemonRepository @Inject constructor(
     suspend fun getDetailPokemonFromDatabase(name: String): FilteredPokemon {
         val response = pokemonDao.getDetailPokemon(name)
         return response.toDomain()
+    }
+
+    suspend fun getPokemonsFromDatabaseByNameFilteredByType(name: String, type1: String): List<FilteredPokemon>{
+        val response = pokemonDao.getPokemonByNameFilteredByType(name, type1)
+        return response.map { it.toDomain() }
+    }
+
+    suspend fun getPokemonsFromDatabaseByNameFilteredByMultiType(name: String, type1: String, type2: String): List<FilteredPokemon>{
+        val response = pokemonDao.getPokemonByNameFilteredByMultiType(name, type1, type2)
+        return response.map { it.toDomain() }
     }
 
     suspend fun getFavoritePokemonsByName(name: String): List<FilteredPokemon> {

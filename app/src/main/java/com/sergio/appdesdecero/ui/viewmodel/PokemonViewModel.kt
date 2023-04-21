@@ -14,14 +14,14 @@ import javax.inject.Inject
 class PokemonViewModel @Inject constructor(
     private val getPokemons: GetPokemons,
     private val getPokemonsByName: GetPokemonsByName,
+    private val getPokemonsByNameFilteredByType: GetPokemonsByNameFilteredByType,
+    private val getPokemonsByNameFilteredByMultiType: GetPokemonsByNameFilteredByMultiType,
     private val getFavoritePokemon: GetFavoritePokemon,
     private val addFavorite: AddFavorite,
     private val removeFavorite: RemoveFavorite,
     private val isFavorite: IsFavorite
 ): ViewModel() {
     var pokemonModel = MutableLiveData<List<FilteredPokemon>>()
-    var pokemonModelType = MutableLiveData<List<FilteredPokemon>>()
-    var pokemonModelMultiType = MutableLiveData<List<FilteredPokemon>>()
     var favoriteModel = MutableLiveData<List<FilteredPokemon>>()
     val isLoading = MutableLiveData<Boolean>()
     var scope: Job? = null
@@ -51,8 +51,8 @@ class PokemonViewModel @Inject constructor(
         var pokemons: List<FilteredPokemon> = emptyList()
         when(types.size){
             0 -> pokemons = getPokemonsByName(pokemonName)
-            1 -> pokemons = getPokemonsByName(pokemonName)
-            2 -> pokemons = getPokemonsByName(pokemonName)
+            1 -> pokemons = getPokemonsByNameFilteredByType(pokemonName, types[0])
+            2 -> pokemons = getPokemonsByNameFilteredByMultiType(pokemonName, types[0], types[1])
         }
         return pokemons
     }
