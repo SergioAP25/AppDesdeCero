@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "3686814242",
+    "project_id": "pokesearcher-53da4",
+    "storage_bucket": "pokesearcher-53da4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:3686814242:android:3a5f0f124c8e41d038307b",
+        "android_client_info": {
+          "package_name": "com.sergio.appdesdecero"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "3686814242-pn9fd3b86bcma47k7rq0965o41lp7cfo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDH_jcCCv2DN9S0IjWq1jkwwHzQOAT-v8c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "3686814242-pn9fd3b86bcma47k7rq0965o41lp7cfo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

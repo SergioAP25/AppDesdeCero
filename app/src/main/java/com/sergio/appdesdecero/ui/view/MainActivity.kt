@@ -3,16 +3,19 @@ package com.sergio.appdesdecero.ui.view
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.sergio.appdesdecero.R
 import com.sergio.appdesdecero.databinding.HomeActivityBinding
 import com.sergio.appdesdecero.ui.view.fragments.HomeFragment
 import com.sergio.appdesdecero.ui.view.fragments.OptionsFragment
 import com.sergio.appdesdecero.ui.view.fragments.SearchFragment
+import com.sergio.appdesdecero.ui.viewmodel.PokemonViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity: AppCompatActivity() {
     private lateinit var binding: HomeActivityBinding
+    private lateinit var pokemonViewModel: PokemonViewModel
     private val homeFragment = HomeFragment()
     private val searchFragment = SearchFragment()
     private val optionsFragment = OptionsFragment()
@@ -21,6 +24,13 @@ class MainActivity: AppCompatActivity() {
         binding = HomeActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        pokemonViewModel = ViewModelProvider(this).get(PokemonViewModel::class.java)
+
+        if(pokemonViewModel.updateScope!=null){
+            pokemonViewModel.updateScope!!.cancel()
+        }
+
+        pokemonViewModel.updateDatabase()
 
         replaceFragment(homeFragment)
 

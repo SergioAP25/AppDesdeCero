@@ -59,7 +59,7 @@ class PokemonRepository @Inject constructor(
         return pokemonDao.exists(name)
     }
 
-    suspend fun insertPokemons(pokemon :List<PokemonEntity>){
+    suspend fun insertPokemons(pokemon : PokemonEntity){
         pokemonDao.insertAll(pokemon)
     }
 

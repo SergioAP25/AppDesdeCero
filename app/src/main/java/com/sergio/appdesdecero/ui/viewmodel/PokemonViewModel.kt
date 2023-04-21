@@ -1,5 +1,6 @@
 package com.sergio.appdesdecero.ui.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -23,16 +24,13 @@ class PokemonViewModel @Inject constructor(
 ): ViewModel() {
     var pokemonModel = MutableLiveData<List<FilteredPokemon>>()
     val isLoading = MutableLiveData<Boolean>()
+    var updateScope: Job? = null
     var scope: Job? = null
-
 
     fun pokemonSearch(pokemonName: String, types: List<String>) {
         scope = viewModelScope.launch {
             isLoading.postValue(true)
-            getPokemons()
-
             val pokemons = typeFilteredSearch(pokemonName, types)
-
             pokemonModel.postValue(pokemons)
             isLoading.postValue(false)
         }
@@ -44,6 +42,13 @@ class PokemonViewModel @Inject constructor(
             val pokemons = getFavoritePokemon(pokemonName)
             pokemonModel.postValue(pokemons)
             isLoading.postValue(false)
+        }
+    }
+    fun updateDatabase(){
+        updateScope = viewModelScope.launch {
+            Log.v("TETSTING", "STARTING DATABASE UPDATE")
+            getPokemons()
+            Log.v("TETSTING", "FINISHING DATABASE UPDATE")
         }
     }
 

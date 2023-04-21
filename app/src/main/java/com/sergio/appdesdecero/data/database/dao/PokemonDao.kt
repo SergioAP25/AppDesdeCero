@@ -27,7 +27,7 @@ interface PokemonDao {
     suspend fun getPokemonByNameFilteredByMultiType(name: String, type1: String, type2: String):List<PokemonEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAll(pokemons :List<PokemonEntity>)
+    suspend fun insertAll(pokemon : PokemonEntity)
 
     @Query("DELETE FROM pokemon")
     suspend fun deleteAllPokemons()

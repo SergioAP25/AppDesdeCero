@@ -29,7 +29,6 @@ class HomeFragment : Fragment() {
         initUI()
         return binding.root
     }
-
     override fun onResume() {
         super.onResume()
         adapter.notifyDataSetChanged()

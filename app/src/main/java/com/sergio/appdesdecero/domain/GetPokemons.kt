@@ -11,28 +11,24 @@ import javax.inject.Inject
 class GetPokemons @Inject constructor(
     private val repository: PokemonRepository
 ){
-    private val pokemonList: MutableList<FilteredPokemon> = mutableListOf<FilteredPokemon>()
     private var apiList: List<PokemonResults> = emptyList()
     suspend operator fun invoke(){
         apiList = repository.getAllPokemonsFromApi()?.results!!
 
         if(!apiList.isEmpty() && !repository.exists(capitalizeName(apiList.last().name))){
-            addPokemonsToList()
             capitalizeList()
-            repository.insertPokemons(pokemonList.map { it.toDatabase() })
+            insertPokemonsIntoDatabase()
         }
     }
 
-    private suspend fun addPokemonsToList(){
-        for (i in apiList.lastIndex downTo 0) {
-           if(!repository.exists(apiList[i].name)){
-               pokemonList.add(repository.getAllPokemonsByNameFromApi(apiList[i].url.substring(34))!!)
-           }
-           else{
-                break
-           }
+    private suspend fun insertPokemonsIntoDatabase(){
+        var pokemon :FilteredPokemon?
+        for(i in 0 until apiList.size){
+            if(!repository.exists(apiList[i].name)){
+                pokemon = repository.getAllPokemonsByNameFromApi(apiList[i].url.substring(34))!!
+                repository.insertPokemons(pokemon.toDatabase())
+            }
         }
-        pokemonList.reverse()
     }
 
     private fun capitalizeName(name: String): String{
@@ -46,15 +42,8 @@ class GetPokemons @Inject constructor(
         }
     }
     private fun capitalizeList(){
-        pokemonList.forEach {
-            it.name = it.name.replaceFirstChar {
-                if (it.isLowerCase()) {
-                    it.titlecase(Locale.ROOT)
-                }
-                else {
-                    it.toString()
-                }
-            }
+        apiList.forEach {
+            it.name = capitalizeName(it.name)
         }
     }
 }

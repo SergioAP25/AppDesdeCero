@@ -42,4 +42,5 @@ class PokemonDetailViewModel @Inject constructor(
     suspend fun isFavoritePokemon(name: String): Boolean{
         return isFavorite(name)
     }
+
 }

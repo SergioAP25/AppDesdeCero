@@ -7,6 +7,6 @@ data class PokemonModel (
     )
 
 data class PokemonResults(
-    @SerializedName("name") val name: String,
+    @SerializedName("name") var name: String,
     @SerializedName("url") val url: String
 )
