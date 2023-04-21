@@ -36,9 +36,6 @@ class PokemonViewModel @Inject constructor(
             isLoading.postValue(true)
             getPokemons()
             val pokemons = getPokemonsByName(pokemonName)
-            Log.v("MENSAJE", pokemonName)
-            Log.v("MENSAJE", pokemons.toString())
-            Log.v("MENSAJE", "====================")
             pokemonModel.postValue(pokemons)
             isLoading.postValue(false)
         }
