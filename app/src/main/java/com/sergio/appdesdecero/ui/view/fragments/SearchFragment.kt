@@ -3,17 +3,14 @@ package com.sergio.appdesdecero.ui.view.fragments
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.sergio.appdesdecero.R
 import com.sergio.appdesdecero.databinding.FragmentSearchBinding
 import com.sergio.appdesdecero.ui.view.DetailActivity
 import com.sergio.appdesdecero.ui.view.recyclerview.PokemonAdapter
@@ -87,16 +84,10 @@ class SearchFragment : Fragment() {
             pokemonViewModel.scope!!.cancel()
         }
 
-        pokemonViewModel.onCreate(query)
+        pokemonViewModel.pokemonSearch(query, typeList)
         pokemonViewModel.pokemonModel.observe(viewLifecycleOwner, Observer {pokemon ->
             adapter.setData(pokemon)
         })
-    }
-
-    private fun filteredSearch(query: String){
-        when(typeList.size){
-            0 -> observer(query)
-        }
     }
 
     private fun initButtons(){

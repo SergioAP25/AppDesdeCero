@@ -1,19 +1,13 @@
 package com.sergio.appdesdecero.ui.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sergio.appdesdecero.data.model.PokemonResults
 import com.sergio.appdesdecero.domain.*
 import com.sergio.appdesdecero.domain.model.FilteredPokemon
-import com.sergio.appdesdecero.domain.model.Pokemon
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
@@ -26,22 +20,25 @@ class PokemonViewModel @Inject constructor(
     private val isFavorite: IsFavorite
 ): ViewModel() {
     var pokemonModel = MutableLiveData<List<FilteredPokemon>>()
+    var pokemonModelType = MutableLiveData<List<FilteredPokemon>>()
+    var pokemonModelMultiType = MutableLiveData<List<FilteredPokemon>>()
     var favoriteModel = MutableLiveData<List<FilteredPokemon>>()
     val isLoading = MutableLiveData<Boolean>()
     var scope: Job? = null
 
 
-    fun onCreate(pokemonName: String) {
+    fun pokemonSearch(pokemonName: String, types: List<String>) {
         scope = viewModelScope.launch {
             isLoading.postValue(true)
             getPokemons()
-            val pokemons = getPokemonsByName(pokemonName)
+
+            val pokemons = typeFilteredSearch(pokemonName, types)
             pokemonModel.postValue(pokemons)
             isLoading.postValue(false)
         }
     }
 
-    fun favorite(pokemonName: String){
+    fun favoritePokemonSearch(pokemonName: String){
         scope = viewModelScope.launch {
             isLoading.postValue(true)
             val pokemons = getFavoritePokemon(pokemonName)
@@ -50,8 +47,14 @@ class PokemonViewModel @Inject constructor(
         }
     }
 
-    suspend fun stop(){
-
+    suspend fun typeFilteredSearch(pokemonName: String, types: List<String>): List<FilteredPokemon> {
+        var pokemons: List<FilteredPokemon> = emptyList()
+        when(types.size){
+            0 -> pokemons = getPokemonsByName(pokemonName)
+            1 -> pokemons = getPokemonsByName(pokemonName)
+            2 -> pokemons = getPokemonsByName(pokemonName)
+        }
+        return pokemons
     }
 
     suspend fun addFavoritePokemon(name: String){
