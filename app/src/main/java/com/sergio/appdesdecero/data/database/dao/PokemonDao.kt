@@ -26,8 +26,10 @@ interface PokemonDao {
     @Query("SELECT * FROM pokemon WHERE name LIKE '%'||:name||'%' AND types LIKE '%'||:type1||'%' AND types LIKE '%'||:type2||'%'")
     suspend fun getPokemonByNameFilteredByMultiType(name: String, type1: String, type2: String):List<PokemonEntity>
 
+    @Query("SELECT COUNT(*) FROM pokemon")
+    suspend fun countPokemons(): Int
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAll(pokemon : PokemonEntity)
+    suspend fun insertPokemon(pokemon : PokemonEntity)
 
     @Query("DELETE FROM pokemon")
     suspend fun deleteAllPokemons()

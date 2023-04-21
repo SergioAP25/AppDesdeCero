@@ -55,12 +55,16 @@ class PokemonRepository @Inject constructor(
         return response.map { it.toDomain() }
     }
 
-    suspend fun exists(name: String): Boolean{
-        return pokemonDao.exists(name)
+    suspend fun countPokemons(): Int{
+        return pokemonDao.countPokemons()
     }
 
-    suspend fun insertPokemons(pokemon : PokemonEntity){
-        pokemonDao.insertAll(pokemon)
+    suspend fun insertPokemon(pokemon : PokemonEntity){
+        pokemonDao.insertPokemon(pokemon)
+    }
+
+    suspend fun exists(name: String): Boolean{
+        return pokemonDao.exists(name)
     }
 
     suspend fun addFavorite(name: String){

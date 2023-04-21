@@ -46,9 +46,9 @@ class PokemonViewModel @Inject constructor(
     }
     fun updateDatabase(){
         updateScope = viewModelScope.launch {
-            Log.v("TETSTING", "STARTING DATABASE UPDATE")
+            Log.v("TESTING", "STARTING DATABASE UPDATE")
             getPokemons()
-            Log.v("TETSTING", "FINISHING DATABASE UPDATE")
+            Log.v("TESTING", "FINISHING DATABASE UPDATE")
         }
     }
 

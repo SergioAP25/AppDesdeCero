@@ -14,20 +14,19 @@ class GetPokemons @Inject constructor(
     private var apiList: List<PokemonResults> = emptyList()
     suspend operator fun invoke(){
         apiList = repository.getAllPokemonsFromApi()?.results!!
-
         if(!apiList.isEmpty() && !repository.exists(capitalizeName(apiList.last().name))){
-            capitalizeList()
             insertPokemonsIntoDatabase()
         }
     }
 
     private suspend fun insertPokemonsIntoDatabase(){
         var pokemon :FilteredPokemon?
-        for(i in 0 until apiList.size){
-            if(!repository.exists(apiList[i].name)){
-                pokemon = repository.getAllPokemonsByNameFromApi(apiList[i].url.substring(34))!!
-                repository.insertPokemons(pokemon.toDatabase())
-            }
+        var startingIndex = repository.countPokemons()
+
+        for(i in startingIndex until apiList.size){
+            pokemon = repository.getAllPokemonsByNameFromApi(apiList[i].url.substring(34))!!
+            pokemon.name = capitalizeName(pokemon.name)
+            repository.insertPokemon(pokemon.toDatabase())
         }
     }
 
@@ -39,11 +38,6 @@ class GetPokemons @Inject constructor(
             else {
                 it.toString()
             }
-        }
-    }
-    private fun capitalizeList(){
-        apiList.forEach {
-            it.name = capitalizeName(it.name)
         }
     }
 }
