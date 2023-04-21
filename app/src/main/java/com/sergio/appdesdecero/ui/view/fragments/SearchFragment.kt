@@ -113,14 +113,14 @@ class SearchFragment : Fragment() {
                     binding.normal.isSelected = true
                     binding.normal.setBackgroundColor(Color.parseColor("#DAD3D3"))
                     typeList.add("normal")
-                    pokemonViewModel.pokemonSearch(lastQuery, typeList)
+                    observer(lastQuery)
                 }
             }
             else{
                 binding.normal.isSelected = false
                 binding.normal.background = null
                 typeList.remove("normal")
-                pokemonViewModel.pokemonSearch(lastQuery, typeList)
+                observer(lastQuery)
             }
         }
 
@@ -130,14 +130,14 @@ class SearchFragment : Fragment() {
                     binding.fire.isSelected = true
                     binding.fire.setBackgroundColor(Color.parseColor("#DAD3D3"))
                     typeList.add("fire")
-                    pokemonViewModel.pokemonSearch(lastQuery, typeList)
+                    observer(lastQuery)
                 }
             }
             else{
                 binding.fire.isSelected = false
                 binding.fire.background = null
                 typeList.remove("fire")
-                pokemonViewModel.pokemonSearch(lastQuery, typeList)
+                observer(lastQuery)
             }
         }
 
@@ -147,14 +147,14 @@ class SearchFragment : Fragment() {
                     binding.water.isSelected = true
                     binding.water.setBackgroundColor(Color.parseColor("#DAD3D3"))
                     typeList.add("water")
-                    pokemonViewModel.pokemonSearch(lastQuery, typeList)
+                    observer(lastQuery)
                 }
             }
             else{
                 binding.water.isSelected = false
                 binding.water.background = null
                 typeList.remove("water")
-                pokemonViewModel.pokemonSearch(lastQuery, typeList)
+                observer(lastQuery)
             }
         }
 
@@ -164,14 +164,14 @@ class SearchFragment : Fragment() {
                     binding.grass.isSelected = true
                     binding.grass.setBackgroundColor(Color.parseColor("#DAD3D3"))
                     typeList.add("grass")
-                    pokemonViewModel.pokemonSearch(lastQuery, typeList)
+                    observer(lastQuery)
                 }
             }
             else{
                 binding.grass.isSelected = false
                 binding.grass.background = null
                 typeList.remove("grass")
-                pokemonViewModel.pokemonSearch(lastQuery, typeList)
+                observer(lastQuery)
             }
         }
 
@@ -181,14 +181,14 @@ class SearchFragment : Fragment() {
                     binding.electric.isSelected = true
                     binding.electric.setBackgroundColor(Color.parseColor("#DAD3D3"))
                     typeList.add("electric")
-                    pokemonViewModel.pokemonSearch(lastQuery, typeList)
+                    observer(lastQuery)
                 }
             }
             else{
                 binding.electric.isSelected = false
                 binding.electric.background = null
                 typeList.remove("electric")
-                pokemonViewModel.pokemonSearch(lastQuery, typeList)
+                observer(lastQuery)
             }
         }
 
@@ -198,15 +198,14 @@ class SearchFragment : Fragment() {
                     binding.ice.isSelected = true
                     binding.ice.setBackgroundColor(Color.parseColor("#DAD3D3"))
                     typeList.add("ice")
-                    pokemonViewModel.pokemonSearch(lastQuery, typeList)
+                    observer(lastQuery)
                 }
             }
             else{
                 binding.ice.isSelected = false
                 binding.ice.background = null
                 typeList.remove("ice")
-                pokemonViewModel.pokemonSearch(lastQuery, typeList)
-
+                observer(lastQuery)
             }
         }
 
@@ -216,14 +215,14 @@ class SearchFragment : Fragment() {
                     binding.ground.isSelected = true
                     binding.ground.setBackgroundColor(Color.parseColor("#DAD3D3"))
                     typeList.add("ground")
-                    pokemonViewModel.pokemonSearch(lastQuery, typeList)
+                    observer(lastQuery)
                 }
             }
             else{
                 binding.ground.isSelected = false
                 binding.ground.background = null
                 typeList.remove("ground")
-                pokemonViewModel.pokemonSearch(lastQuery, typeList)
+                observer(lastQuery)
             }
         }
 
@@ -233,14 +232,14 @@ class SearchFragment : Fragment() {
                     binding.flying.isSelected = true
                     binding.flying.setBackgroundColor(Color.parseColor("#DAD3D3"))
                     typeList.add("flying")
-                    pokemonViewModel.pokemonSearch(lastQuery, typeList)
+                    observer(lastQuery)
                 }
             }
             else{
                 binding.flying.isSelected = false
                 binding.flying.background = null
                 typeList.remove("flying")
-                pokemonViewModel.pokemonSearch(lastQuery, typeList)
+                observer(lastQuery)
             }
         }
 
@@ -250,14 +249,14 @@ class SearchFragment : Fragment() {
                     binding.poison.isSelected = true
                     binding.poison.setBackgroundColor(Color.parseColor("#DAD3D3"))
                     typeList.add("poison")
-                    pokemonViewModel.pokemonSearch(lastQuery, typeList)
+                    observer(lastQuery)
                 }
             }
             else{
                 binding.poison.isSelected = false
                 binding.poison.background = null
                 typeList.remove("poison")
-                pokemonViewModel.pokemonSearch(lastQuery, typeList)
+                observer(lastQuery)
             }
         }
 
@@ -267,14 +266,14 @@ class SearchFragment : Fragment() {
                     binding.fighting.isSelected = true
                     binding.fighting.setBackgroundColor(Color.parseColor("#DAD3D3"))
                     typeList.add("fighting")
-                    pokemonViewModel.pokemonSearch(lastQuery, typeList)
+                    observer(lastQuery)
                 }
             }
             else{
                 binding.fighting.isSelected = false
                 binding.fighting.background = null
                 typeList.remove("fighting")
-                pokemonViewModel.pokemonSearch(lastQuery, typeList)
+                observer(lastQuery)
             }
         }
 
@@ -284,14 +283,14 @@ class SearchFragment : Fragment() {
                     binding.psychic.isSelected = true
                     binding.psychic.setBackgroundColor(Color.parseColor("#DAD3D3"))
                     typeList.add("psychic")
-                    pokemonViewModel.pokemonSearch(lastQuery, typeList)
+                    observer(lastQuery)
                 }
             }
             else{
                 binding.psychic.isSelected = false
                 binding.psychic.background = null
                 typeList.remove("psychic")
-                pokemonViewModel.pokemonSearch(lastQuery, typeList)
+                observer(lastQuery)
             }
         }
 
@@ -301,14 +300,14 @@ class SearchFragment : Fragment() {
                     binding.dark.isSelected = true
                     binding.dark.setBackgroundColor(Color.parseColor("#DAD3D3"))
                     typeList.add("dark")
-                    pokemonViewModel.pokemonSearch(lastQuery, typeList)
+                    observer(lastQuery)
                 }
             }
             else{
                 binding.dark.isSelected = false
                 binding.dark.background = null
                 typeList.remove("dark")
-                pokemonViewModel.pokemonSearch(lastQuery, typeList)
+                observer(lastQuery)
             }
         }
 
@@ -318,14 +317,14 @@ class SearchFragment : Fragment() {
                     binding.rock.isSelected = true
                     binding.rock.setBackgroundColor(Color.parseColor("#DAD3D3"))
                     typeList.add("rock")
-                    pokemonViewModel.pokemonSearch(lastQuery, typeList)
+                    observer(lastQuery)
                 }
             }
             else{
                 binding.rock.isSelected = false
                 binding.rock.background = null
                 typeList.remove("rock")
-                pokemonViewModel.pokemonSearch(lastQuery, typeList)
+                observer(lastQuery)
             }
         }
 
@@ -335,14 +334,14 @@ class SearchFragment : Fragment() {
                     binding.bug.isSelected = true
                     binding.bug.setBackgroundColor(Color.parseColor("#DAD3D3"))
                     typeList.add("bug")
-                    pokemonViewModel.pokemonSearch(lastQuery, typeList)
+                    observer(lastQuery)
                 }
             }
             else{
                 binding.bug.isSelected = false
                 binding.bug.background = null
                 typeList.remove("bug")
-                pokemonViewModel.pokemonSearch(lastQuery, typeList)
+                observer(lastQuery)
             }
         }
 
@@ -352,14 +351,14 @@ class SearchFragment : Fragment() {
                     binding.ghost.isSelected = true
                     binding.ghost.setBackgroundColor(Color.parseColor("#DAD3D3"))
                     typeList.add("ghost")
-                    pokemonViewModel.pokemonSearch(lastQuery, typeList)
+                    observer(lastQuery)
                 }
             }
             else{
                 binding.ghost.isSelected = false
                 binding.ghost.background = null
                 typeList.remove("ghost")
-                pokemonViewModel.pokemonSearch(lastQuery, typeList)
+                observer(lastQuery)
             }
         }
 
@@ -369,14 +368,14 @@ class SearchFragment : Fragment() {
                     binding.steel.isSelected = true
                     binding.steel.setBackgroundColor(Color.parseColor("#DAD3D3"))
                     typeList.add("steel")
-                    pokemonViewModel.pokemonSearch(lastQuery, typeList)
+                    observer(lastQuery)
                 }
             }
             else{
                 binding.steel.isSelected = false
                 binding.steel.background = null
                 typeList.remove("steel")
-                pokemonViewModel.pokemonSearch(lastQuery, typeList)
+                observer(lastQuery)
             }
         }
 
@@ -386,14 +385,14 @@ class SearchFragment : Fragment() {
                     binding.dragon.isSelected = true
                     binding.dragon.setBackgroundColor(Color.parseColor("#DAD3D3"))
                     typeList.add("dragon")
-                    pokemonViewModel.pokemonSearch(lastQuery, typeList)
+                    observer(lastQuery)
                 }
             }
             else{
                 binding.dragon.isSelected = false
                 binding.dragon.background = null
                 typeList.remove("dragon")
-                pokemonViewModel.pokemonSearch(lastQuery, typeList)
+                observer(lastQuery)
             }
         }
 
@@ -403,14 +402,14 @@ class SearchFragment : Fragment() {
                     binding.fairy.isSelected = true
                     binding.fairy.setBackgroundColor(Color.parseColor("#DAD3D3"))
                     typeList.add("fairy")
-                    pokemonViewModel.pokemonSearch(lastQuery, typeList)
+                    observer(lastQuery)
                 }
             }
             else{
                 binding.fairy.isSelected = false
                 binding.fairy.background = null
                 typeList.remove("fairy")
-                pokemonViewModel.pokemonSearch(lastQuery, typeList)
+                observer(lastQuery)
             }
         }
     }
