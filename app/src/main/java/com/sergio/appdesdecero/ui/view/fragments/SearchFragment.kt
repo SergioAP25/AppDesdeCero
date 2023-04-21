@@ -12,6 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sergio.appdesdecero.databinding.FragmentSearchBinding
+import com.sergio.appdesdecero.domain.model.FilteredPokemon
 import com.sergio.appdesdecero.ui.view.DetailActivity
 import com.sergio.appdesdecero.ui.view.recyclerview.PokemonAdapter
 import com.sergio.appdesdecero.ui.viewmodel.PokemonViewModel
@@ -79,7 +80,7 @@ class SearchFragment : Fragment() {
                 binding.bar.setVisibility(View.VISIBLE)
             }
             else{
-                binding.bar.setVisibility(View.INVISIBLE)
+                binding.bar.setVisibility(View.GONE)
             }
         })
 
@@ -90,7 +91,19 @@ class SearchFragment : Fragment() {
         pokemonViewModel.pokemonSearch(query, typeList)
         pokemonViewModel.pokemonModel.observe(viewLifecycleOwner, Observer {pokemon ->
             adapter.setData(pokemon)
+            manageVisibility(pokemon)
         })
+    }
+
+    private fun manageVisibility(pokemon: List<FilteredPokemon>) {
+        if (pokemon.isEmpty()){
+            binding.rvPokemon.setVisibility(View.GONE)
+            binding.notFound.setVisibility(View.VISIBLE)
+        }
+        else{
+            binding.rvPokemon.setVisibility(View.VISIBLE)
+            binding.notFound.setVisibility(View.GONE)
+        }
     }
 
     private fun initButtons(){

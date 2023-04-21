@@ -73,7 +73,7 @@ class HomeFragment : Fragment() {
                 binding.favoritesProgessbar.setVisibility(View.VISIBLE)
             }
             else{
-                binding.favoritesProgessbar.setVisibility(View.INVISIBLE)
+                binding.favoritesProgessbar.setVisibility(View.GONE)
             }
         })
 
