@@ -38,17 +38,17 @@
             android:background="#B444A310">
             <TextView
                 android:id="@+id/pokemonname"
-                android:layout_marginHorizontal="50dp"
+                android:layout_marginHorizontal="30dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="20sp"
+                android:textSize="14sp"
                 android:textColor="@color/white"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent">
             </TextView>
             <ImageView
-                android:layout_marginHorizontal="40dp"
+                android:layout_marginHorizontal="20dp"
                 android:id="@+id/pokemontype1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -57,7 +57,7 @@
                 app:layout_constraintBottom_toBottomOf="parent">
             </ImageView>
             <ImageView
-                android:layout_marginHorizontal="100dp"
+                android:layout_marginHorizontal="80dp"
                 android:id="@+id/pokemontype2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

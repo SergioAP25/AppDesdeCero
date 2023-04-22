@@ -1,6 +1,7 @@
 package com.sergio.appdesdecero.ui.view.recyclerview
 
 import android.util.Log
+import android.util.TypedValue
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.sergio.appdesdecero.R
@@ -35,6 +36,7 @@ class PokemonViewHolder(view: View): RecyclerView.ViewHolder(view) {
                binding.boton.setBackgroundResource(R.drawable.baseline_star_24)
            }
        }
+
        binding.boton.setOnClickListener {
            CoroutineScope(Dispatchers.IO).launch {
                if(!isFavorite(pokemon.name)){
