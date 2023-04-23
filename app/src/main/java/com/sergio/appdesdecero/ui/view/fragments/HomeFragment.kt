@@ -534,17 +534,17 @@ class HomeFragment : Fragment() {
                     binding.fairy.setBackgroundColor(Color.parseColor("#DAD3D3"))
                 }
             }
+        }
 
-            when(ordering){
-                "az" -> {
-                    binding.az.isSelected =true
-                    binding.az.setBackgroundColor(Color.parseColor("#DAD3D3"))
-                }
+        when(ordering){
+            "az" -> {
+                binding.az.isSelected =true
+                binding.az.setBackgroundColor(Color.parseColor("#DAD3D3"))
+            }
 
-                "za" -> {
-                    binding.za.isSelected =true
-                    binding.za.setBackgroundColor(Color.parseColor("#DAD3D3"))
-                }
+            "za" -> {
+                binding.za.isSelected =true
+                binding.za.setBackgroundColor(Color.parseColor("#DAD3D3"))
             }
         }
     }

@@ -3,6 +3,7 @@ package com.sergio.appdesdecero.ui.view.fragments
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -39,7 +40,6 @@ class SearchFragment : Fragment() {
             binding.electric, binding.ice, binding.ground, binding.flying,
             binding.poison, binding.fighting, binding.psychic, binding.dark,
             binding.rock, binding.bug, binding.ghost, binding.steel, binding.dragon, binding.fairy)
-
         initUI()
 
         return binding.root
@@ -539,17 +539,17 @@ class SearchFragment : Fragment() {
                     binding.fairy.setBackgroundColor(Color.parseColor("#DAD3D3"))
                 }
             }
+        }
 
-            when(ordering){
-                "az" -> {
-                    binding.az.isSelected =true
-                    binding.az.setBackgroundColor(Color.parseColor("#DAD3D3"))
-                }
+        when(ordering){
+            "az" -> {
+                binding.az.isSelected =true
+                binding.az.setBackgroundColor(Color.parseColor("#DAD3D3"))
+            }
 
-                "za" -> {
-                    binding.za.isSelected =true
-                    binding.za.setBackgroundColor(Color.parseColor("#DAD3D3"))
-                }
+            "za" -> {
+                binding.za.isSelected =true
+                binding.za.setBackgroundColor(Color.parseColor("#DAD3D3"))
             }
         }
     }
