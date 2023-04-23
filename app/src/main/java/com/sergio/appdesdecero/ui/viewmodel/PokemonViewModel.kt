@@ -24,8 +24,14 @@ class PokemonViewModel @Inject constructor(
     private val getPokemonsByNameFilteredByMultiTypeAZ: GetPokemonsByNameFilteredByMultiTypeAZ,
     private val getPokemonsByNameFilteredByMultiTypeZA: GetPokemonsByNameFilteredByMultiTypeZA,
     private val getFavoritePokemon: GetFavoritePokemon,
+    private val getFavoritePokemonAZ: GetFavoritePokemonAZ,
+    private val getFavoritePokemonZA: GetFavoritePokemonZA,
     private val getFavoritePokemonsByNameFilteredByType: GetFavoritePokemonsByNameFilteredByType,
+    private val getFavoritePokemonsByNameFilteredByTypeAZ: GetFavoritePokemonsByNameFilteredByTypeAZ,
+    private val getFavoritePokemonsByNameFilteredByTypeZA: GetFavoritePokemonsByNameFilteredByTypeZA,
     private val getFavoritePokemonsByNameFilteredByMultiType: GetFavoritePokemonsByNameFilteredByMultiType,
+    private val getFavoritePokemonsByNameFilteredByMultiTypeAZ: GetFavoritePokemonsByNameFilteredByMultiTypeAZ,
+    private val getFavoritePokemonsByNameFilteredByMultiTypeZA: GetFavoritePokemonsByNameFilteredByMultiTypeZA,
     private val addFavorite: AddFavorite,
     private val removeFavorite: RemoveFavorite,
     private val isFavorite: IsFavorite
@@ -44,10 +50,10 @@ class PokemonViewModel @Inject constructor(
         }
     }
 
-    fun favoritePokemonSearch(pokemonName: String, types: List<String>){
+    fun favoritePokemonSearch(pokemonName: String, ordering: String, types: List<String>){
         scope = viewModelScope.launch {
             isLoading.postValue(true)
-            val pokemons = typeFilteredFavoriteSearch(pokemonName, types)
+            val pokemons = typeFilteredFavoriteSearch(pokemonName, ordering, types)
             pokemonModel.postValue(pokemons)
             isLoading.postValue(false)
         }
@@ -90,12 +96,33 @@ class PokemonViewModel @Inject constructor(
         return pokemons
     }
 
-    suspend fun typeFilteredFavoriteSearch(pokemonName: String, types: List<String>): List<FilteredPokemon> {
+    suspend fun typeFilteredFavoriteSearch(pokemonName: String, ordering: String, types: List<String>): List<FilteredPokemon> {
         var pokemons: List<FilteredPokemon> = emptyList()
-        when(types.size){
-            0 -> pokemons = getFavoritePokemon(pokemonName)
-            1 -> pokemons = getFavoritePokemonsByNameFilteredByType(pokemonName, types[0])
-            2 -> pokemons = getFavoritePokemonsByNameFilteredByMultiType(pokemonName, types[0], types[1])
+
+        when(ordering){
+            "" -> {
+                when(types.size){
+                    0 -> pokemons = getFavoritePokemon(pokemonName)
+                    1 -> pokemons = getFavoritePokemonsByNameFilteredByType(pokemonName, types[0])
+                    2 -> pokemons = getFavoritePokemonsByNameFilteredByMultiType(pokemonName, types[0], types[1])
+                }
+            }
+
+            "az" -> {
+                when(types.size){
+                    0 -> pokemons = getFavoritePokemonAZ(pokemonName)
+                    1 -> pokemons = getFavoritePokemonsByNameFilteredByTypeAZ(pokemonName, types[0])
+                    2 -> pokemons = getFavoritePokemonsByNameFilteredByMultiTypeAZ(pokemonName, types[0], types[1])
+                }
+            }
+
+            "za" -> {
+                when(types.size){
+                    0 -> pokemons = getFavoritePokemonZA(pokemonName)
+                    1 -> pokemons = getFavoritePokemonsByNameFilteredByTypeZA(pokemonName, types[0])
+                    2 -> pokemons = getFavoritePokemonsByNameFilteredByMultiTypeZA(pokemonName, types[0], types[1])
+                }
+            }
         }
         return pokemons
     }

@@ -85,13 +85,43 @@ class PokemonRepository @Inject constructor(
         return response.map { it.toDomain() }
     }
 
+    suspend fun getFavoritePokemonsByNameAZ(name: String): List<FilteredPokemon> {
+        val response = pokemonDao.getFavoritePokemonByNameAZ(name)
+        return response.map { it.toDomain() }
+    }
+
+    suspend fun getFavoritePokemonsByNameZA(name: String): List<FilteredPokemon> {
+        val response = pokemonDao.getFavoritePokemonByNameZA(name)
+        return response.map { it.toDomain() }
+    }
+
     suspend fun getFavoritePokemonsFromDatabaseByNameFilteredByType(name: String, type1: String): List<FilteredPokemon>{
         val response = pokemonDao.getFavoritePokemonByNameFilteredByType(name, type1)
         return response.map { it.toDomain() }
     }
 
+    suspend fun getFavoritePokemonsFromDatabaseByNameFilteredByTypeAZ(name: String, type1: String): List<FilteredPokemon>{
+        val response = pokemonDao.getFavoritePokemonByNameFilteredByTypeAZ(name, type1)
+        return response.map { it.toDomain() }
+    }
+
+    suspend fun getFavoritePokemonsFromDatabaseByNameFilteredByTypeZA(name: String, type1: String): List<FilteredPokemon>{
+        val response = pokemonDao.getFavoritePokemonByNameFilteredByTypeZA(name, type1)
+        return response.map { it.toDomain() }
+    }
+
     suspend fun getFavoritePokemonsFromDatabaseByNameFilteredByMultiType(name: String, type1: String, type2: String): List<FilteredPokemon>{
         val response = pokemonDao.getFavoritePokemonByNameFilteredByMultiType(name, type1, type2)
+        return response.map { it.toDomain() }
+    }
+
+    suspend fun getFavoritePokemonsFromDatabaseByNameFilteredByMultiTypeAZ(name: String, type1: String, type2: String): List<FilteredPokemon>{
+        val response = pokemonDao.getFavoritePokemonByNameFilteredByMultiTypeAZ(name, type1, type2)
+        return response.map { it.toDomain() }
+    }
+
+    suspend fun getFavoritePokemonsFromDatabaseByNameFilteredByMultiTypeZA(name: String, type1: String, type2: String): List<FilteredPokemon>{
+        val response = pokemonDao.getFavoritePokemonByNameFilteredByMultiTypeZA(name, type1, type2)
         return response.map { it.toDomain() }
     }
 

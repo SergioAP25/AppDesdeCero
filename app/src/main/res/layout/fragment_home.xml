@@ -30,6 +30,24 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/searchbar">
+            <Button
+                android:text="A-Z"
+                android:contentDescription="AZ Ordering"
+                android:background="@null"
+                android:id="@+id/az"
+                android:layout_width="90dp"
+                android:layout_height="50dp"
+                android:scaleType="centerCrop">
+            </Button>
+            <Button
+                android:text="Z-A"
+                android:contentDescription="ZA Ordering"
+                android:background="@null"
+                android:id="@+id/za"
+                android:layout_width="90dp"
+                android:layout_height="50dp"
+                android:scaleType="centerCrop">
+            </Button>
             <ImageButton
                 android:contentDescription="Normal"
                 android:src="@drawable/normal"

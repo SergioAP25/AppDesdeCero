@@ -25,6 +25,7 @@ class HomeFragment : Fragment() {
     private var typeList: MutableList<String> = mutableListOf()
     private lateinit var buttonList: List<View>
     private var lastQuery: String = ""
+    private var ordering: String = ""
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -48,6 +49,7 @@ class HomeFragment : Fragment() {
     private fun initUI(){
         configSwipe()
         loadButtonState()
+        initOrderingButtons()
         initButtons()
         adapter = PokemonAdapter(emptyList(), this::navigatetoDetail, this::addFavorite,
             this::removeFavorite, this::isFavorite)
@@ -94,7 +96,7 @@ class HomeFragment : Fragment() {
             pokemonViewModel.scope!!.cancel()
         }
 
-        pokemonViewModel.favoritePokemonSearch(query, typeList)
+        pokemonViewModel.favoritePokemonSearch(query, ordering, typeList)
         pokemonViewModel.pokemonModel.observe(viewLifecycleOwner, Observer {pokemon ->
             adapter.setData(pokemon)
             manageVisibility(pokemon)
@@ -109,6 +111,42 @@ class HomeFragment : Fragment() {
         else{
             binding.rvFavorites.setVisibility(View.VISIBLE)
             binding.notFound.setVisibility(View.GONE)
+        }
+    }
+
+    private fun initOrderingButtons(){
+        binding.az.setOnClickListener {
+            if(!binding.az.isSelected){
+                if (!binding.za.isSelected){
+                    binding.az.isSelected = true
+                    binding.az.setBackgroundColor(Color.parseColor("#DAD3D3"))
+                    ordering = "az"
+                    observer(lastQuery)
+                }
+            }
+            else{
+                binding.az.isSelected = false
+                binding.az.background = null
+                ordering = ""
+                observer(lastQuery)
+            }
+        }
+
+        binding.za.setOnClickListener {
+            if(!binding.za.isSelected){
+                if (!binding.az.isSelected){
+                    binding.za.isSelected = true
+                    binding.za.setBackgroundColor(Color.parseColor("#DAD3D3"))
+                    ordering = "za"
+                    observer(lastQuery)
+                }
+            }
+            else{
+                binding.za.isSelected = false
+                binding.za.background = null
+                ordering = ""
+                observer(lastQuery)
+            }
         }
     }
 
@@ -494,6 +532,18 @@ class HomeFragment : Fragment() {
                 "fairy" -> {
                     binding.fairy.isSelected =true
                     binding.fairy.setBackgroundColor(Color.parseColor("#DAD3D3"))
+                }
+            }
+
+            when(ordering){
+                "az" -> {
+                    binding.az.isSelected =true
+                    binding.az.setBackgroundColor(Color.parseColor("#DAD3D3"))
+                }
+
+                "za" -> {
+                    binding.za.isSelected =true
+                    binding.za.setBackgroundColor(Color.parseColor("#DAD3D3"))
                 }
             }
         }
