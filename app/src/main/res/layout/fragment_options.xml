@@ -24,7 +24,6 @@
     </TextView>
 
     <TextView
-        android:text="Email"
         android:id="@+id/email"
         android:textSize="20sp"
         android:textColor="@color/black"
@@ -47,14 +46,12 @@
         android:layout_height="40dp"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginTop="8dp"
         app:layout_constraintTop_toBottomOf="@id/email"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
     </TextView>
 
     <TextView
-        android:text="Provider"
         android:id="@+id/provider"
         android:textSize="20sp"
         android:textColor="@color/black"
@@ -62,7 +59,7 @@
         android:layout_height="40dp"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         app:layout_constraintTop_toBottomOf="@id/providerIndicator"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
