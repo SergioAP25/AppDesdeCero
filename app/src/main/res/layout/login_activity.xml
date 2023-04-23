@@ -19,7 +19,6 @@
     </ImageView>
 
     <EditText
-        android:text="admin@gmail.com"
         android:id="@+id/email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -34,7 +33,6 @@
     </EditText>
 
     <EditText
-        android:text="admin25"
         android:id="@+id/password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -79,8 +77,8 @@
     <Button
         android:id="@+id/login_google"
         android:drawableStart="@drawable/google"
-        android:textAlignment="textStart"
         android:paddingStart="16dp"
+        android:paddingEnd="210dp"
         android:text="Google"
         android:textColor="@color/black"
         android:background="@color/white"
