@@ -36,10 +36,10 @@ class PokemonViewModel @Inject constructor(
         }
     }
 
-    fun favoritePokemonSearch(pokemonName: String){
+    fun favoritePokemonSearch(pokemonName: String, types: List<String>){
         scope = viewModelScope.launch {
             isLoading.postValue(true)
-            val pokemons = getFavoritePokemon(pokemonName)
+            val pokemons = typeFilteredFavoriteSearch(pokemonName, types)
             pokemonModel.postValue(pokemons)
             isLoading.postValue(false)
         }
@@ -53,6 +53,16 @@ class PokemonViewModel @Inject constructor(
     }
 
     suspend fun typeFilteredSearch(pokemonName: String, types: List<String>): List<FilteredPokemon> {
+        var pokemons: List<FilteredPokemon> = emptyList()
+        when(types.size){
+            0 -> pokemons = getPokemonsByName(pokemonName)
+            1 -> pokemons = getPokemonsByNameFilteredByType(pokemonName, types[0])
+            2 -> pokemons = getPokemonsByNameFilteredByMultiType(pokemonName, types[0], types[1])
+        }
+        return pokemons
+    }
+
+    suspend fun typeFilteredFavoriteSearch(pokemonName: String, types: List<String>): List<FilteredPokemon> {
         var pokemons: List<FilteredPokemon> = emptyList()
         when(types.size){
             0 -> pokemons = getPokemonsByName(pokemonName)

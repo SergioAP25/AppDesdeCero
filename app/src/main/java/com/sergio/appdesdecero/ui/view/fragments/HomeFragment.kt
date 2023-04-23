@@ -94,7 +94,7 @@ class HomeFragment : Fragment() {
             pokemonViewModel.scope!!.cancel()
         }
 
-        pokemonViewModel.favoritePokemonSearch(query)
+        pokemonViewModel.favoritePokemonSearch(query, typeList)
         pokemonViewModel.pokemonModel.observe(viewLifecycleOwner, Observer {pokemon ->
             adapter.setData(pokemon)
             manageVisibility(pokemon)

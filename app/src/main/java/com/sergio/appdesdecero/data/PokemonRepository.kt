@@ -6,6 +6,7 @@ import com.sergio.appdesdecero.data.database.dao.PokemonDao
 import com.sergio.appdesdecero.data.database.entities.PokemonEntity
 import com.sergio.appdesdecero.data.model.FilteredPokemonModel
 import com.sergio.appdesdecero.data.model.PokemonModel
+import com.sergio.appdesdecero.data.model.Types
 import com.sergio.appdesdecero.data.network.PokemonService
 import com.sergio.appdesdecero.domain.model.FilteredPokemon
 import com.sergio.appdesdecero.domain.model.Pokemon
@@ -52,6 +53,16 @@ class PokemonRepository @Inject constructor(
 
     suspend fun getFavoritePokemonsByName(name: String): List<FilteredPokemon> {
         val response = pokemonDao.getFavoritePokemonByName(name)
+        return response.map { it.toDomain() }
+    }
+
+    suspend fun getFavoritePokemonsFromDatabaseByNameFilteredByType(name: String, type1: String): List<FilteredPokemon>{
+        val response = pokemonDao.getFavoritePokemonByNameFilteredByType(name, type1)
+        return response.map { it.toDomain() }
+    }
+
+    suspend fun getFavoritePokemonsFromDatabaseByNameFilteredByMultiType(name: String, type1: String, type2: String): List<FilteredPokemon>{
+        val response = pokemonDao.getFavoritePokemonByNameFilteredByMultiType(name, type1, type2)
         return response.map { it.toDomain() }
     }
 

@@ -2,7 +2,9 @@ package com.sergio.appdesdecero.data.database.dao
 
 import androidx.room.Dao
 import androidx.room.Query
+import com.sergio.appdesdecero.data.database.entities.FavoritesEntity
 import com.sergio.appdesdecero.data.database.entities.PokemonEntity
+import com.sergio.appdesdecero.data.model.Types
 
 @Dao
 interface FavoritesDao {

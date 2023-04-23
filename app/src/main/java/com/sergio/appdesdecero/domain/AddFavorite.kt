@@ -1,6 +1,7 @@
 package com.sergio.appdesdecero.domain
 
 import com.sergio.appdesdecero.data.PokemonRepository
+import com.sergio.appdesdecero.data.model.Types
 import com.sergio.appdesdecero.domain.model.FilteredPokemon
 import javax.inject.Inject
 

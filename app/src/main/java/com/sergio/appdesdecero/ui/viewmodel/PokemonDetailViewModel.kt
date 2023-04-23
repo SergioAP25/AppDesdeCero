@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.sergio.appdesdecero.data.model.Types
 import com.sergio.appdesdecero.domain.*
 import com.sergio.appdesdecero.domain.model.FilteredPokemon
 import dagger.hilt.android.lifecycle.HiltViewModel
