@@ -14,7 +14,8 @@ import com.sergio.appdesdecero.ui.viewmodel.PokemonViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 enum class ProviderType {
-    BASIC
+    BASIC,
+    GOOGLE
 }
 @AndroidEntryPoint
 class MainActivity: AppCompatActivity() {
