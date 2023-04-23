@@ -15,8 +15,14 @@ import javax.inject.Inject
 class PokemonViewModel @Inject constructor(
     private val getPokemons: GetPokemons,
     private val getPokemonsByName: GetPokemonsByName,
+    private val getPokemonsByNameAZ: GetPokemonsByNameAZ,
+    private val getPokemonsByNameZA: GetPokemonsByNameZA,
     private val getPokemonsByNameFilteredByType: GetPokemonsByNameFilteredByType,
+    private val getPokemonsByNameFilteredByTypeAZ: GetPokemonsByNameFilteredByTypeAZ,
+    private val getPokemonsByNameFilteredByTypeZA: GetPokemonsByNameFilteredByTypeZA,
     private val getPokemonsByNameFilteredByMultiType: GetPokemonsByNameFilteredByMultiType,
+    private val getPokemonsByNameFilteredByMultiTypeAZ: GetPokemonsByNameFilteredByMultiTypeAZ,
+    private val getPokemonsByNameFilteredByMultiTypeZA: GetPokemonsByNameFilteredByMultiTypeZA,
     private val getFavoritePokemon: GetFavoritePokemon,
     private val getFavoritePokemonsByNameFilteredByType: GetFavoritePokemonsByNameFilteredByType,
     private val getFavoritePokemonsByNameFilteredByMultiType: GetFavoritePokemonsByNameFilteredByMultiType,
@@ -29,10 +35,10 @@ class PokemonViewModel @Inject constructor(
     var updateScope: Job? = null
     var scope: Job? = null
 
-    fun pokemonSearch(pokemonName: String, types: List<String>) {
+    fun pokemonSearch(pokemonName: String, ordering: String, types: List<String>) {
         scope = viewModelScope.launch {
             isLoading.postValue(true)
-            val pokemons = typeFilteredSearch(pokemonName, types)
+            val pokemons = typeFilteredSearch(pokemonName, ordering, types)
             pokemonModel.postValue(pokemons)
             isLoading.postValue(false)
         }
@@ -54,12 +60,32 @@ class PokemonViewModel @Inject constructor(
         }
     }
 
-    suspend fun typeFilteredSearch(pokemonName: String, types: List<String>): List<FilteredPokemon> {
+    suspend fun typeFilteredSearch(pokemonName: String, ordering: String, types: List<String>): List<FilteredPokemon> {
         var pokemons: List<FilteredPokemon> = emptyList()
-        when(types.size){
-            0 -> pokemons = getPokemonsByName(pokemonName)
-            1 -> pokemons = getPokemonsByNameFilteredByType(pokemonName, types[0])
-            2 -> pokemons = getPokemonsByNameFilteredByMultiType(pokemonName, types[0], types[1])
+        when(ordering){
+            "" -> {
+                when(types.size){
+                    0 -> pokemons = getPokemonsByName(pokemonName)
+                    1 -> pokemons = getPokemonsByNameFilteredByType(pokemonName, types[0])
+                    2 -> pokemons = getPokemonsByNameFilteredByMultiType(pokemonName, types[0], types[1])
+                }
+            }
+
+            "az" -> {
+                when(types.size){
+                    0 -> pokemons = getPokemonsByNameAZ(pokemonName)
+                    1 -> pokemons = getPokemonsByNameFilteredByTypeAZ(pokemonName, types[0])
+                    2 -> pokemons = getPokemonsByNameFilteredByMultiTypeAZ(pokemonName, types[0], types[1])
+                }
+            }
+
+            "za" -> {
+                when(types.size){
+                    0 -> pokemons = getPokemonsByNameZA(pokemonName)
+                    1 -> pokemons = getPokemonsByNameFilteredByTypeZA(pokemonName, types[0])
+                    2 -> pokemons = getPokemonsByNameFilteredByMultiTypeZA(pokemonName, types[0], types[1])
+                }
+            }
         }
         return pokemons
     }

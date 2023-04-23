@@ -20,11 +20,29 @@ interface PokemonDao {
     @Query("SELECT (SELECT COUNT(*) FROM pokemon WHERE name = :name) == 1")
     suspend fun exists(name: String): Boolean
 
+    @Query("SELECT * FROM pokemon WHERE name LIKE '%'||:name||'%' ORDER BY name ASC")
+    suspend fun getPokemonByNameAZ(name: String):List<PokemonEntity>
+
+    @Query("SELECT * FROM pokemon WHERE name LIKE '%'||:name||'%' ORDER BY name DESC")
+    suspend fun getPokemonByNameZA(name: String):List<PokemonEntity>
+
     @Query("SELECT * FROM pokemon WHERE name LIKE '%'||:name||'%' AND types LIKE '%'||:type1||'%'")
     suspend fun getPokemonByNameFilteredByType(name: String, type1: String):List<PokemonEntity>
 
+    @Query("SELECT * FROM pokemon WHERE name LIKE '%'||:name||'%' AND types LIKE '%'||:type1||'%' ORDER BY name ASC")
+    suspend fun getPokemonByNameFilteredByTypeAZ(name: String, type1: String):List<PokemonEntity>
+
+    @Query("SELECT * FROM pokemon WHERE name LIKE '%'||:name||'%' AND types LIKE '%'||:type1||'%' ORDER BY name DESC")
+    suspend fun getPokemonByNameFilteredByTypeZA(name: String, type1: String):List<PokemonEntity>
+
     @Query("SELECT * FROM pokemon WHERE name LIKE '%'||:name||'%' AND types LIKE '%'||:type1||'%' AND types LIKE '%'||:type2||'%'")
     suspend fun getPokemonByNameFilteredByMultiType(name: String, type1: String, type2: String):List<PokemonEntity>
+
+    @Query("SELECT * FROM pokemon WHERE name LIKE '%'||:name||'%' AND types LIKE '%'||:type1||'%' AND types LIKE '%'||:type2||'%' ORDER BY name ASC")
+    suspend fun getPokemonByNameFilteredByMultiTypeAZ(name: String, type1: String, type2: String):List<PokemonEntity>
+
+    @Query("SELECT * FROM pokemon WHERE name LIKE '%'||:name||'%' AND types LIKE '%'||:type1||'%' AND types LIKE '%'||:type2||'%' ORDER BY name DESC")
+    suspend fun getPokemonByNameFilteredByMultiTypeZA(name: String, type1: String, type2: String):List<PokemonEntity>
 
     @Query("SELECT * FROM pokemon p, favorites f WHERE p.name = f.pokemonName AND p.name LIKE '%'||:name||'%' AND p.types LIKE '%'||:type1||'%'")
     suspend fun getFavoritePokemonByNameFilteredByType(name: String, type1: String):List<PokemonEntity>

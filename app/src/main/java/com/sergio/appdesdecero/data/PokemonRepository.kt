@@ -41,13 +41,42 @@ class PokemonRepository @Inject constructor(
         return response.toDomain()
     }
 
+    suspend fun getPokemonsFromDatabaseByNameAZ(name: String): List<FilteredPokemon>{
+        val response = pokemonDao.getPokemonByNameAZ(name)
+        return response.map { it.toDomain() }
+    }
+
+    suspend fun getPokemonsFromDatabaseByNameZA(name: String): List<FilteredPokemon>{
+        val response = pokemonDao.getPokemonByNameZA(name)
+        return response.map { it.toDomain() }
+    }
+
     suspend fun getPokemonsFromDatabaseByNameFilteredByType(name: String, type1: String): List<FilteredPokemon>{
         val response = pokemonDao.getPokemonByNameFilteredByType(name, type1)
         return response.map { it.toDomain() }
     }
 
+    suspend fun getPokemonsFromDatabaseByNameFilteredByTypeAZ(name: String, type1: String): List<FilteredPokemon>{
+        val response = pokemonDao.getPokemonByNameFilteredByTypeAZ(name, type1)
+        return response.map { it.toDomain() }
+    }
+
+    suspend fun getPokemonsFromDatabaseByNameFilteredByTypeZA(name: String, type1: String): List<FilteredPokemon>{
+        val response = pokemonDao.getPokemonByNameFilteredByTypeZA(name, type1)
+        return response.map { it.toDomain() }
+    }
+
     suspend fun getPokemonsFromDatabaseByNameFilteredByMultiType(name: String, type1: String, type2: String): List<FilteredPokemon>{
         val response = pokemonDao.getPokemonByNameFilteredByMultiType(name, type1, type2)
+        return response.map { it.toDomain() }
+    }
+    suspend fun getPokemonsFromDatabaseByNameFilteredByMultiTypeAZ(name: String, type1: String, type2: String): List<FilteredPokemon>{
+        val response = pokemonDao.getPokemonByNameFilteredByMultiTypeAZ(name, type1, type2)
+        return response.map { it.toDomain() }
+    }
+
+    suspend fun getPokemonsFromDatabaseByNameFilteredByMultiTypeZA(name: String, type1: String, type2: String): List<FilteredPokemon>{
+        val response = pokemonDao.getPokemonByNameFilteredByMultiTypeZA(name, type1, type2)
         return response.map { it.toDomain() }
     }
 

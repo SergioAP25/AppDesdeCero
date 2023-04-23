@@ -101,7 +101,7 @@ class SearchFragment : Fragment() {
             pokemonViewModel.scope!!.cancel()
         }
 
-        pokemonViewModel.pokemonSearch(query, typeList)
+        pokemonViewModel.pokemonSearch(query, ordering, typeList)
         pokemonViewModel.pokemonModel.observe(viewLifecycleOwner, Observer {pokemon ->
             adapter.setData(pokemon)
             manageVisibility(pokemon)
@@ -126,12 +126,14 @@ class SearchFragment : Fragment() {
                     binding.az.isSelected = true
                     binding.az.setBackgroundColor(Color.parseColor("#DAD3D3"))
                     ordering = "az"
+                    observer(lastQuery)
                 }
             }
             else{
                 binding.az.isSelected = false
                 binding.az.background = null
                 ordering = ""
+                observer(lastQuery)
             }
         }
 
@@ -141,12 +143,14 @@ class SearchFragment : Fragment() {
                     binding.za.isSelected = true
                     binding.za.setBackgroundColor(Color.parseColor("#DAD3D3"))
                     ordering = "za"
+                    observer(lastQuery)
                 }
             }
             else{
                 binding.za.isSelected = false
                 binding.za.background = null
                 ordering = ""
+                observer(lastQuery)
             }
         }
     }
@@ -535,7 +539,7 @@ class SearchFragment : Fragment() {
                     binding.fairy.setBackgroundColor(Color.parseColor("#DAD3D3"))
                 }
             }
-            
+
             when(ordering){
                 "az" -> {
                     binding.az.isSelected =true
