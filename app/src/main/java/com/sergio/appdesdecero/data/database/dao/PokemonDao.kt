@@ -26,10 +26,10 @@ interface PokemonDao {
     @Query("SELECT * FROM pokemon WHERE name LIKE '%'||:name||'%' AND types LIKE '%'||:type1||'%' AND types LIKE '%'||:type2||'%'")
     suspend fun getPokemonByNameFilteredByMultiType(name: String, type1: String, type2: String):List<PokemonEntity>
 
-    @Query("SELECT * FROM pokemon p, favorites f WHERE p.name = f.pokemonName AND name LIKE '%'||:name||'%' AND types LIKE '%'||:type1||'%'")
+    @Query("SELECT * FROM pokemon p, favorites f WHERE p.name = f.pokemonName AND p.name LIKE '%'||:name||'%' AND p.types LIKE '%'||:type1||'%'")
     suspend fun getFavoritePokemonByNameFilteredByType(name: String, type1: String):List<PokemonEntity>
 
-    @Query("SELECT * FROM pokemon p, favorites f WHERE p.name = f.pokemonName AND name LIKE '%'||:name||'%' AND types LIKE '%'||:type1||'%' AND types LIKE '%'||:type2||'%'")
+    @Query("SELECT * FROM pokemon p, favorites f WHERE p.name = f.pokemonName AND p.name LIKE '%'||:name||'%' AND p.types LIKE '%'||:type1||'%' AND p.types LIKE '%'||:type2||'%'")
     suspend fun getFavoritePokemonByNameFilteredByMultiType(name: String, type1: String, type2: String):List<PokemonEntity>
 
     @Query("SELECT COUNT(*) FROM pokemon")
