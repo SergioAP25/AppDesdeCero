@@ -1,5 +1,6 @@
 package com.sergio.appdesdecero.ui.view.fragments
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -29,6 +30,9 @@ class OptionsFragment : Fragment() {
 
     private fun initUI(){
         binding.logOutButton.setOnClickListener {
+            val prefs = getActivity()?.getSharedPreferences("PokeSearch", Context.MODE_PRIVATE)?.edit()
+            prefs?.clear()
+            prefs?.apply()
             FirebaseAuth.getInstance().signOut()
             navigateToLogin()
         }
