@@ -47,6 +47,7 @@ class PokemonViewModel @Inject constructor(
             val pokemons = typeFilteredSearch(pokemonName, ordering, types)
             pokemonModel.postValue(pokemons)
             isLoading.postValue(false)
+
         }
     }
 
