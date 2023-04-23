@@ -10,7 +10,7 @@
     <item
         android:id="@+id/searchFragment"
         android:icon="@drawable/pokedex"
-        android:title="Pokedex">
+        android:title="Pokédex">
     </item>
 
     <item
