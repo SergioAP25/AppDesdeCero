@@ -2,6 +2,7 @@ package com.sergio.appdesdecero.ui.view
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -40,11 +41,6 @@ class MainActivity: AppCompatActivity() {
 
         pokemonViewModel = ViewModelProvider(this).get(PokemonViewModel::class.java)
 
-        if(pokemonViewModel.updateScope!=null){
-            pokemonViewModel.updateScope!!.cancel()
-        }
-
-        pokemonViewModel.updateDatabase()
 
         replaceFragment(homeFragment)
 
@@ -56,6 +52,16 @@ class MainActivity: AppCompatActivity() {
             }
             true
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if(pokemonViewModel.updateScope!=null){
+            pokemonViewModel.updateScope!!.cancel()
+        }
+
+        Log.v("TESTT", "ONRESUME CALLED")
+        pokemonViewModel.updateDatabase()
     }
 
     private fun replaceFragment(fragment: Fragment) {
