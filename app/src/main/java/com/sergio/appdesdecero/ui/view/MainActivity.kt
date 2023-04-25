@@ -60,7 +60,6 @@ class MainActivity: AppCompatActivity() {
             pokemonViewModel.updateScope!!.cancel()
         }
 
-        Log.v("TESTT", "ONRESUME CALLED")
         pokemonViewModel.updateDatabase()
     }
 
