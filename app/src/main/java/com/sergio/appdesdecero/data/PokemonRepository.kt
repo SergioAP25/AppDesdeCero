@@ -125,6 +125,11 @@ class PokemonRepository @Inject constructor(
         return response.map { it.toDomain() }
     }
 
+    suspend fun getRandomPokemonFromDatabase(): FilteredPokemon{
+        val response = pokemonDao.getRandomPokemon()
+        return response.toDomain()
+    }
+
     suspend fun countPokemons(): Int{
         return pokemonDao.countPokemons()
     }

@@ -8,24 +8,38 @@ import com.sergio.appdesdecero.data.model.Types
 import com.sergio.appdesdecero.domain.*
 import com.sergio.appdesdecero.domain.model.FilteredPokemon
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class PokemonDetailViewModel @Inject constructor(
     private val getDetailPokemon: GetDetailPokemon,
+    private val getRandomPokemon: GetRandomPokemon,
     private val addFavorite: AddFavorite,
     private val removeFavorite: RemoveFavorite,
     private  val isFavorite: IsFavorite
 ): ViewModel(){
     val pokemonModel = MutableLiveData<FilteredPokemon?>()
     val isLoading = MutableLiveData<Boolean>()
+    var scope: Job? = null
 
     fun onCreate(pokemonName: String) {
-        viewModelScope.launch {
+        scope = viewModelScope.launch {
             isLoading.postValue(true)
 
             val result = getDetailPokemon(pokemonName)
+
+            pokemonModel.postValue(result)
+            isLoading.postValue(false)
+        }
+    }
+
+    fun randomPokemon() {
+        scope = viewModelScope.launch {
+            isLoading.postValue(true)
+
+            val result = getRandomPokemon()
 
             pokemonModel.postValue(result)
             isLoading.postValue(false)

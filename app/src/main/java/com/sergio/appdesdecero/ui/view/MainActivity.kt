@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.sergio.appdesdecero.R
 import com.sergio.appdesdecero.databinding.HomeActivityBinding
+import com.sergio.appdesdecero.ui.view.fragments.FavoriteFragment
 import com.sergio.appdesdecero.ui.view.fragments.HomeFragment
 import com.sergio.appdesdecero.ui.view.fragments.OptionsFragment
 import com.sergio.appdesdecero.ui.view.fragments.SearchFragment
@@ -22,6 +23,7 @@ enum class ProviderType {
 class MainActivity: AppCompatActivity() {
     private lateinit var binding: HomeActivityBinding
     private lateinit var pokemonViewModel: PokemonViewModel
+    private val favoriteFragment = FavoriteFragment()
     private val homeFragment = HomeFragment()
     private val searchFragment = SearchFragment()
     private val optionsFragment = OptionsFragment()
@@ -42,10 +44,11 @@ class MainActivity: AppCompatActivity() {
         pokemonViewModel = ViewModelProvider(this).get(PokemonViewModel::class.java)
 
 
-        replaceFragment(homeFragment)
+        replaceFragment(favoriteFragment)
 
         binding.bottomNavigationView.setOnItemSelectedListener {
             when(it.itemId) {
+                R.id.favoriteFragment -> replaceFragment(favoriteFragment)
                 R.id.homeFragment -> replaceFragment(homeFragment)
                 R.id.searchFragment -> replaceFragment(searchFragment)
                 R.id.optionsFragment -> replaceFragment(optionsFragment)

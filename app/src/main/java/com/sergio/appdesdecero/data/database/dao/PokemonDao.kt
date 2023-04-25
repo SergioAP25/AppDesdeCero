@@ -68,6 +68,9 @@ interface PokemonDao {
     @Query("SELECT * FROM pokemon p, favorites f WHERE p.name = f.pokemonName AND p.name LIKE '%'||:name||'%' AND p.types LIKE '%'||:type1||'%' AND p.types LIKE '%'||:type2||'%' ORDER BY p.name DESC")
     suspend fun getFavoritePokemonByNameFilteredByMultiTypeZA(name: String, type1: String, type2: String):List<PokemonEntity>
 
+    @Query("SELECT * FROM pokemon ORDER BY RANDOM () LIMIT 1.")
+    suspend fun getRandomPokemon(): PokemonEntity
+
     @Query("SELECT COUNT(*) FROM pokemon")
     suspend fun countPokemons(): Int
     @Insert(onConflict = OnConflictStrategy.REPLACE)

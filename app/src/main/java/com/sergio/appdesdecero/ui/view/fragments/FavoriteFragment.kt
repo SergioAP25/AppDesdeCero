@@ -1,19 +1,19 @@
-package com.sergio.appdesdecero.ui.view
+package com.sergio.appdesdecero.ui.view.fragments
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.PersistableBundle
-import android.util.Log
 import android.util.TypedValue
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
 import android.view.View
-import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
+import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.sergio.appdesdecero.R
-import com.sergio.appdesdecero.databinding.DetailActivityBinding
+import com.sergio.appdesdecero.databinding.FragmentFavoriteBinding
 import com.sergio.appdesdecero.domain.model.FilteredPokemon
+import com.sergio.appdesdecero.ui.view.FullScreenImageActivity
 import com.sergio.appdesdecero.ui.viewmodel.PokemonDetailViewModel
-import com.sergio.appdesdecero.ui.viewmodel.PokemonViewModel
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
@@ -22,27 +22,22 @@ import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
 
 @AndroidEntryPoint
-class DetailActivity: AppCompatActivity() {
+class FavoriteFragment : Fragment() {
+    private lateinit var binding: FragmentFavoriteBinding
+    private lateinit var pokemonDetailViewModel: PokemonDetailViewModel
 
-    companion object {
-        const val EXTRA_NAME = "extra_name"
-    }
-
-    lateinit var binding: DetailActivityBinding
-    private val pokemonDetailViewModel: PokemonDetailViewModel by viewModels()
-    private val context = this
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = DetailActivityBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
-        val name: String = intent.getStringExtra(EXTRA_NAME).orEmpty()
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = FragmentFavoriteBinding.inflate(layoutInflater)
+        pokemonDetailViewModel = ViewModelProvider(this).get(PokemonDetailViewModel::class.java)
+        configSwipe()
         if(pokemonDetailViewModel.scope!=null){
             pokemonDetailViewModel.scope!!.cancel()
         }
-        pokemonDetailViewModel.onCreate(name)
-        pokemonDetailViewModel.pokemonModel.observe(context, Observer {pokemon ->
+        pokemonDetailViewModel.randomPokemon()
+        pokemonDetailViewModel.pokemonModel.observe(viewLifecycleOwner, Observer {pokemon ->
             Picasso.get().load(pokemon?.sprites?.front_default).into(binding.pokemonImage)
             binding.pokemonName.text = pokemon?.name
 
@@ -84,6 +79,17 @@ class DetailActivity: AppCompatActivity() {
             }
 
         })
+        return binding.root
+    }
+
+    private fun configSwipe(){
+        binding.homeSwipe.setOnRefreshListener {
+            parentFragmentManager.beginTransaction()
+                .detach(this).commit()
+            parentFragmentManager.beginTransaction()
+                .attach(this).commit()
+            binding.homeSwipe.isRefreshing = false
+        }
     }
 
     private fun bindTypes(pokemon: FilteredPokemon?){
@@ -139,4 +145,5 @@ class DetailActivity: AppCompatActivity() {
         intent.putExtra(FullScreenImageActivity.EXTRA_IMAGE, image)
         startActivity(intent)
     }
+
 }
