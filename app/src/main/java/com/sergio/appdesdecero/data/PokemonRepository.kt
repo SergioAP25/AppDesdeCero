@@ -4,9 +4,7 @@ import android.util.Log
 import com.sergio.appdesdecero.data.database.dao.FavoritesDao
 import com.sergio.appdesdecero.data.database.dao.PokemonDao
 import com.sergio.appdesdecero.data.database.entities.PokemonEntity
-import com.sergio.appdesdecero.data.model.FilteredPokemonModel
-import com.sergio.appdesdecero.data.model.PokemonModel
-import com.sergio.appdesdecero.data.model.Types
+import com.sergio.appdesdecero.data.model.*
 import com.sergio.appdesdecero.data.network.PokemonService
 import com.sergio.appdesdecero.domain.model.FilteredPokemon
 import com.sergio.appdesdecero.domain.model.Pokemon
@@ -21,6 +19,15 @@ class PokemonRepository @Inject constructor(
     private val pokemonDao: PokemonDao,
     private val favoritesDao: FavoritesDao
 ) {
+    private val name: String = "Pikachu"
+    private val species: Species = Species("https://pokeapi.co/api/v2/pokemon-species/25/")
+    private val sprites: Sprites =  Sprites("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png")
+    private val stats: List<Stats> = listOf(Stats(35), Stats(55), Stats(40), Stats(50), Stats(50), Stats(90))
+    private val types: List<Types> = listOf(Types(1, Type("electric")))
+    private val height: Int = 4
+    private val weight: Int = 60
+    private val defaultPokemon: PokemonEntity = PokemonEntity(name, species, sprites, stats, types, height, weight)
+
     suspend fun getAllPokemonsFromApi(): Pokemon?{
         val response: PokemonModel? = api.getPokemons()
         return response?.toDomain()
@@ -126,7 +133,10 @@ class PokemonRepository @Inject constructor(
     }
 
     suspend fun getRandomPokemonFromDatabase(): FilteredPokemon{
-        val response = pokemonDao.getRandomPokemon()
+        var response = pokemonDao.getRandomPokemon()
+        if(response==null){ // Por que me mientes, señor compilador, esto falla cuando la base de datos está vacía inicialmente
+            response = defaultPokemon
+        }
         return response.toDomain()
     }
 
