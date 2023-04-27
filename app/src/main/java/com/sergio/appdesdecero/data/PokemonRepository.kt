@@ -169,6 +169,10 @@ class PokemonRepository @Inject constructor(
         return pokemonDao.countPokemons()
     }
 
+    suspend fun countDescriptions(): Int{
+        return descriptionsDao.countDescriptions()
+    }
+
     suspend fun insertPokemon(pokemon : PokemonEntity){
         pokemonDao.insertPokemon(pokemon)
     }

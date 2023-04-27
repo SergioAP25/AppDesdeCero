@@ -12,4 +12,7 @@ interface DescriptionsDao {
     @Query("INSERT INTO descriptions (descriptions_id, descriptions) VALUES(:id, :description)")
     suspend fun insertPokemonDescriptions(id: Int, description: List<Description>)
 
+    @Query("SELECT COUNT(*) FROM descriptions")
+    suspend fun countDescriptions(): Int
+
 }
