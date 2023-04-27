@@ -43,12 +43,12 @@ class PokemonRepository @Inject constructor(
     }
 
     suspend fun getAllPokemonsByNameFromApi(name: String): FilteredPokemon?{
-        val response: FilteredPokemonModel? = api.getPokemonsByName(name)
+        val response: FilteredPokemonModel = api.getPokemonsByName(name) ?: return null
         return response?.toDomain()
     }
 
     suspend fun getPokemonDescriptionByNameFromApi(name: String): PokemonDescription? {
-        val response: DescriptionPokemonModel? = api.getPokemonsDescriptionByName(name)
+        val response: DescriptionPokemonModel? = api.getPokemonsDescriptionByName(name)?: return null
         return response?.toDomain()
     }
 
