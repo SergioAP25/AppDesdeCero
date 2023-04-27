@@ -30,7 +30,12 @@ class PokemonRepository @Inject constructor(
     private val types: List<Types> = listOf(Types(1, Type("grass")), Types(2, Type("poison")))
     private val height: Int = 7
     private val weight: Int = 69
-    private val defaultPokemon: PokemonEntity = PokemonEntity(0, name, species, sprites, stats, types, height, weight)
+    private val defaultPokemon: PokemonEntity = PokemonEntity(1, name, species, sprites, stats, types, height, weight)
+    private val descriptionList: List<Description> = listOf(Description(
+        "For some time after its birth, it grows by gaining nourishment from the seed on its back.",
+        Language("en")))
+    private val defaultDescriptions: DescriptionEntity = DescriptionEntity(1, descriptionList)
+
 
     suspend fun getAllPokemonsFromApi(): Pokemon?{
         val response: PokemonModel? = api.getPokemons()
@@ -53,7 +58,10 @@ class PokemonRepository @Inject constructor(
     }
 
     suspend fun getDetailPokemonFromDatabase(name: String): FilteredPokemon {
-        val response = pokemonDao.getDetailPokemon(name)
+        var response = pokemonDao.getDetailPokemon(name)
+        if (response==null){
+            response = defaultPokemon
+        }
         return response.toDomain()
     }
 
@@ -143,14 +151,17 @@ class PokemonRepository @Inject constructor(
 
     suspend fun getRandomPokemonFromDatabase(): FilteredPokemon{
         var response = pokemonDao.getRandomPokemon()
-        if(response==null){ // Android Studio miente
+        if(response==null){
             response = defaultPokemon
         }
         return response.toDomain()
     }
 
     suspend fun getPokemonDescriptionsFromDatabase(name: String): PokemonDescription {
-        val response = pokemonDao.getPokemonDescriptions(name)
+        var response = pokemonDao.getPokemonDescriptions(name)
+        if (response==null){
+            response = defaultDescriptions
+        }
         return response.toDomain()
     }
 

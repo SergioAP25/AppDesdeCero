@@ -20,8 +20,7 @@ enum class ProviderType {
     GOOGLE
 }
 @AndroidEntryPoint
-class MainActivity @Inject constructor(
-): AppCompatActivity() {
+class MainActivity: AppCompatActivity() {
     private lateinit var binding: HomeActivityBinding
     private lateinit var pokemonViewModel: PokemonViewModel
     private val favoriteFragment = FavoriteFragment()
@@ -32,6 +31,7 @@ class MainActivity @Inject constructor(
         super.onCreate(savedInstanceState)
         binding = HomeActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        pokemonViewModel = ViewModelProvider(this).get(PokemonViewModel::class.java)
 
         val bundle = intent.extras
         val email = bundle?.getString("email")
@@ -42,7 +42,6 @@ class MainActivity @Inject constructor(
         prefs.putString("provider", provider)
         prefs.apply()
 
-        pokemonViewModel = ViewModelProvider(this).get(PokemonViewModel::class.java)
 
 
         replaceFragment(favoriteFragment)

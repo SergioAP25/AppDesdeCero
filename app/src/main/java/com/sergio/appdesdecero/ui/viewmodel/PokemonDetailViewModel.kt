@@ -41,10 +41,15 @@ class PokemonDetailViewModel @Inject constructor(
 
             pokemonModel.postValue(result)
 
-            val description: String
+            var description = ""
             var list = getPokemonDescriptions(pokemonName).descriptions
             if(!list.isEmpty()){
-                description = getPokemonDescriptions(pokemonName).descriptions[0].flavor_text.replace("\n", " ")
+                for(i in 0 until list.size){
+                    if (list[i].language.name.equals("en")){
+                        description = getPokemonDescriptions(pokemonName).descriptions[i].flavor_text.replace("\n", " ")
+                        break
+                    }
+                }
             }
             else{
                 description = "This pokemon has no description known"
@@ -65,15 +70,17 @@ class PokemonDetailViewModel @Inject constructor(
 
             pokemonModel.postValue(result)
 
-            val description: String
+            var description = ""
             var list = getPokemonDescriptions(pokemonName).descriptions
-            if (!list.isEmpty()) {
-                description =
-                    getPokemonDescriptions(pokemonName).descriptions[0].flavor_text.replace(
-                        "\n",
-                        " "
-                    )
-            } else {
+            if(!list.isEmpty()){
+                for(i in 0 until list.size){
+                    if (list[i].language.name.equals("en")){
+                        description = getPokemonDescriptions(pokemonName).descriptions[i].flavor_text.replace("\n", " ")
+                        break
+                    }
+                }
+            }
+            else{
                 description = "This pokemon has no description known"
             }
 

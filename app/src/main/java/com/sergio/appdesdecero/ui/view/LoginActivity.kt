@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -14,9 +15,12 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.sergio.appdesdecero.R
 import com.sergio.appdesdecero.databinding.LoginActivityBinding
+import com.sergio.appdesdecero.ui.viewmodel.PokemonViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import java.security.Provider
-
-class LoginActivity : AppCompatActivity() {
+import javax.inject.Inject
+@AndroidEntryPoint
+class LoginActivity: AppCompatActivity() {
     private lateinit var binding: LoginActivityBinding
     private val GOOGLE_SIGN_IN = 100
 
@@ -95,7 +99,6 @@ class LoginActivity : AppCompatActivity() {
             }
         }
     }
-
     private fun session(){
         val prefs = getSharedPreferences("PokeSearch", Context.MODE_PRIVATE)
         val email = prefs.getString("email", null)

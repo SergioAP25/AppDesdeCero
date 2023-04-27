@@ -13,6 +13,6 @@ private const val DEFAULT_DESCRIPTION = "[{\"flavor_text\":\"A strange seed was\
         childColumns = ["descriptions_id"])])
 data class DescriptionEntity (
     @PrimaryKey
-    @ColumnInfo(name = "descriptions_id") val id: String,
+    @ColumnInfo(name = "descriptions_id") val id: Int,
     @ColumnInfo(name = "descriptions", defaultValue = DEFAULT_DESCRIPTION) val descriptions: List<Description>
 )

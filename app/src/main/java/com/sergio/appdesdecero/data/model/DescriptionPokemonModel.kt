@@ -7,5 +7,10 @@ data class DescriptionPokemonModel (
 )
 
 data class Description (
-    @SerializedName("flavor_text") val flavor_text: String
+    @SerializedName("flavor_text") val flavor_text: String,
+    @SerializedName("language") val language: Language
+)
+
+data class Language (
+    @SerializedName("name") val name: String
 )

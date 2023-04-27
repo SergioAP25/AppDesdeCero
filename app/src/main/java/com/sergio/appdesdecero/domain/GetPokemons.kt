@@ -24,6 +24,7 @@ class GetPokemons @Inject constructor(
         var pokemon :FilteredPokemon
         var pokemonDescription: PokemonDescription
         var startingIndex = repository.countPokemons()
+        
 
         for(i in startingIndex until apiList.size){
             pokemon = repository.getAllPokemonsByNameFromApi(apiList[i].url.substring(34))!!
