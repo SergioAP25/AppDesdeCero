@@ -17,4 +17,5 @@ interface FavoritesDao {
     @Query("SELECT (SELECT COUNT(*) FROM favorites WHERE pokemonName = :name) == 1")
     suspend fun isFavorite(name: String): Boolean
 
+
 }
