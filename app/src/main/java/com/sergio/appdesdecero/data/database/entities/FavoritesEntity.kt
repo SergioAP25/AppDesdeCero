@@ -9,5 +9,5 @@ import com.sergio.appdesdecero.data.model.Types
 @Entity(tableName = "favorites")
 data class FavoritesEntity (
     @PrimaryKey
-    @ColumnInfo(name = "pokemonName") val name: String,
+    @ColumnInfo(name = "pokemonName") val name: String
 )
