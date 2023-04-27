@@ -29,4 +29,8 @@ object RoomModule {
     @Provides
     fun provideFavoritesDao(db:PokemonDatabase) = db.getFavoritesDao()
 
+    @Singleton
+    @Provides
+    fun provideDescriptionsDao(db:PokemonDatabase) = db.getDescriptionsDao()
+
 }

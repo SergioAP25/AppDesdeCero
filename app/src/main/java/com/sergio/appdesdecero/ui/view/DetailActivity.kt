@@ -82,7 +82,10 @@ class DetailActivity: AppCompatActivity() {
                     }
                 }
             }
+        })
 
+        pokemonDetailViewModel.pokemonDescription.observe(context, Observer { pokemonDescription ->
+            binding.description.text = pokemonDescription
         })
     }
 

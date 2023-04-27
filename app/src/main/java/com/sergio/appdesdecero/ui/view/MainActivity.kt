@@ -2,7 +2,6 @@ package com.sergio.appdesdecero.ui.view
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -14,13 +13,15 @@ import com.sergio.appdesdecero.ui.view.fragments.OptionsFragment
 import com.sergio.appdesdecero.ui.view.fragments.SearchFragment
 import com.sergio.appdesdecero.ui.viewmodel.PokemonViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 enum class ProviderType {
     BASIC,
     GOOGLE
 }
 @AndroidEntryPoint
-class MainActivity: AppCompatActivity() {
+class MainActivity @Inject constructor(
+): AppCompatActivity() {
     private lateinit var binding: HomeActivityBinding
     private lateinit var pokemonViewModel: PokemonViewModel
     private val favoriteFragment = FavoriteFragment()

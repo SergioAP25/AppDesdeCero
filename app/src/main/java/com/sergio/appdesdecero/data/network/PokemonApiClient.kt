@@ -1,5 +1,6 @@
 package com.sergio.appdesdecero.data.network
 
+import com.sergio.appdesdecero.data.model.DescriptionPokemonModel
 import com.sergio.appdesdecero.data.model.FilteredPokemonModel
 import com.sergio.appdesdecero.data.model.PokemonModel
 import retrofit2.Response
@@ -13,4 +14,6 @@ interface PokemonApiClient {
     @GET("pokemon/{name}")
     suspend fun getAllPokemonsByName(@Path("name") url: String): Response<FilteredPokemonModel>
 
+    @GET("pokemon-species/{name}")
+    suspend fun getPokemonDescriptionByName(@Path("name") url: String): Response<DescriptionPokemonModel>
 }

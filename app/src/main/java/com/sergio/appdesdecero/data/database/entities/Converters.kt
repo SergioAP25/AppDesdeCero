@@ -3,10 +3,7 @@ package com.sergio.appdesdecero.data.database.entities
 import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.sergio.appdesdecero.data.model.Species
-import com.sergio.appdesdecero.data.model.Sprites
-import com.sergio.appdesdecero.data.model.Stats
-import com.sergio.appdesdecero.data.model.Types
+import com.sergio.appdesdecero.data.model.*
 
 class Converters {
 
@@ -55,6 +52,20 @@ class Converters {
     fun toTypesList(value: String): List<Types> {
         val gson = Gson()
         val type = object : TypeToken<List<Types>>() {}.type
+        return gson.fromJson(value, type)
+    }
+
+    @TypeConverter
+    fun fromDescriptionList(value: List<Description>): String {
+        val gson = Gson()
+        val type = object : TypeToken<List<Description>>() {}.type
+        return gson.toJson(value, type)
+    }
+
+    @TypeConverter
+    fun toDescriptionList(value: String): List<Description> {
+        val gson = Gson()
+        val type = object : TypeToken<List<Description>>() {}.type
         return gson.fromJson(value, type)
     }
 }

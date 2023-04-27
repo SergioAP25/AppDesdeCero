@@ -1,6 +1,7 @@
 package com.sergio.appdesdecero.data.network
 
 import android.util.Log
+import com.sergio.appdesdecero.data.model.DescriptionPokemonModel
 import com.sergio.appdesdecero.data.model.FilteredPokemonModel
 import com.sergio.appdesdecero.data.model.PokemonModel
 import com.sergio.appdesdecero.domain.model.Pokemon
@@ -26,9 +27,16 @@ class PokemonService @Inject constructor(
     suspend fun getPokemonsByName(name: String): FilteredPokemonModel?{
         return withContext(Dispatchers.IO){
             val response: Response<FilteredPokemonModel> = api.getAllPokemonsByName(name)
-            Log.v("TESTING", response.body().toString())
             response.body()
         }
     }
+
+    suspend fun getPokemonsDescriptionByName(name: String): DescriptionPokemonModel?{
+        return withContext(Dispatchers.IO){
+            val response: Response<DescriptionPokemonModel> = api.getPokemonDescriptionByName(name)
+            response.body()
+        }
+    }
+
 
 }

@@ -4,7 +4,10 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import com.sergio.appdesdecero.data.database.entities.DescriptionEntity
 import com.sergio.appdesdecero.data.database.entities.PokemonEntity
+import com.sergio.appdesdecero.data.model.Description
+import com.sergio.appdesdecero.domain.model.PokemonDescription
 
 @Dao
 interface PokemonDao {
@@ -67,6 +70,9 @@ interface PokemonDao {
 
     @Query("SELECT * FROM pokemon p, favorites f WHERE p.name = f.pokemonName AND p.name LIKE '%'||:name||'%' AND p.types LIKE '%'||:type1||'%' AND p.types LIKE '%'||:type2||'%' ORDER BY p.name DESC")
     suspend fun getFavoritePokemonByNameFilteredByMultiTypeZA(name: String, type1: String, type2: String):List<PokemonEntity>
+
+    @Query("SELECT * FROM pokemon p, descriptions d WHERE p.id = d.descriptions_id AND name = :name")
+    suspend fun getPokemonDescriptions(name: String): DescriptionEntity
 
     @Query("SELECT * FROM pokemon ORDER BY RANDOM () LIMIT 1.")
     suspend fun getRandomPokemon(): PokemonEntity

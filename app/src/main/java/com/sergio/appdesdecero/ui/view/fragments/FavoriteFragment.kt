@@ -19,10 +19,11 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 import kotlin.math.roundToInt
 
 @AndroidEntryPoint
-class FavoriteFragment : Fragment() {
+class FavoriteFragment @Inject constructor(): Fragment() {
     private lateinit var binding: FragmentFavoriteBinding
     private lateinit var pokemonDetailViewModel: PokemonDetailViewModel
 

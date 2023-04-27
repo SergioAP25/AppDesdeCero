@@ -1,9 +1,6 @@
 package com.sergio.appdesdecero.data.database.entities
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-import androidx.room.TypeConverters
+import androidx.room.*
 import com.sergio.appdesdecero.data.model.Species
 import com.sergio.appdesdecero.data.model.Sprites
 import com.sergio.appdesdecero.data.model.Stats
@@ -12,9 +9,12 @@ import com.sergio.appdesdecero.domain.model.FilteredPokemon
 
 const val DEFAULT_SPRITE = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/132.png"
 
-@Entity(tableName = "pokemon")
+@Entity(tableName = "pokemon", indices = [
+    Index(value = ["name"], unique = true)
+])
 data class PokemonEntity (
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "id") val id: Int = 0,
     @ColumnInfo(name = "name") val name: String,
     @ColumnInfo(name = "species") val species: Species,
     @ColumnInfo(name = "sprites", defaultValue = DEFAULT_SPRITE) val sprites: Sprites,

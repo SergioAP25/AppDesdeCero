@@ -1,13 +1,16 @@
 package com.sergio.appdesdecero.data
 
 import android.util.Log
+import com.sergio.appdesdecero.data.database.dao.DescriptionsDao
 import com.sergio.appdesdecero.data.database.dao.FavoritesDao
 import com.sergio.appdesdecero.data.database.dao.PokemonDao
+import com.sergio.appdesdecero.data.database.entities.DescriptionEntity
 import com.sergio.appdesdecero.data.database.entities.PokemonEntity
 import com.sergio.appdesdecero.data.model.*
 import com.sergio.appdesdecero.data.network.PokemonService
 import com.sergio.appdesdecero.domain.model.FilteredPokemon
 import com.sergio.appdesdecero.domain.model.Pokemon
+import com.sergio.appdesdecero.domain.model.PokemonDescription
 import com.sergio.appdesdecero.domain.model.toDomain
 
 
@@ -17,16 +20,17 @@ import javax.inject.Inject
 class PokemonRepository @Inject constructor(
     private val api: PokemonService,
     private val pokemonDao: PokemonDao,
-    private val favoritesDao: FavoritesDao
+    private val favoritesDao: FavoritesDao,
+    private val descriptionsDao: DescriptionsDao
 ) {
-    private val name: String = "Pikachu"
-    private val species: Species = Species("https://pokeapi.co/api/v2/pokemon-species/25/")
-    private val sprites: Sprites =  Sprites("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png")
-    private val stats: List<Stats> = listOf(Stats(35), Stats(55), Stats(40), Stats(50), Stats(50), Stats(90))
-    private val types: List<Types> = listOf(Types(1, Type("electric")))
-    private val height: Int = 4
-    private val weight: Int = 60
-    private val defaultPokemon: PokemonEntity = PokemonEntity(name, species, sprites, stats, types, height, weight)
+    private val name: String = "Bulbasaur"
+    private val species: Species = Species("https://pokeapi.co/api/v2/pokemon-species/1/")
+    private val sprites: Sprites =  Sprites("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png")
+    private val stats: List<Stats> = listOf(Stats(45), Stats(49), Stats(49), Stats(65), Stats(65), Stats(45))
+    private val types: List<Types> = listOf(Types(1, Type("grass")), Types(2, Type("poison")))
+    private val height: Int = 7
+    private val weight: Int = 69
+    private val defaultPokemon: PokemonEntity = PokemonEntity(0, name, species, sprites, stats, types, height, weight)
 
     suspend fun getAllPokemonsFromApi(): Pokemon?{
         val response: PokemonModel? = api.getPokemons()
@@ -35,6 +39,11 @@ class PokemonRepository @Inject constructor(
 
     suspend fun getAllPokemonsByNameFromApi(name: String): FilteredPokemon?{
         val response: FilteredPokemonModel? = api.getPokemonsByName(name)
+        return response?.toDomain()
+    }
+
+    suspend fun getPokemonDescriptionByNameFromApi(name: String): PokemonDescription? {
+        val response: DescriptionPokemonModel? = api.getPokemonsDescriptionByName(name)
         return response?.toDomain()
     }
 
@@ -134,9 +143,14 @@ class PokemonRepository @Inject constructor(
 
     suspend fun getRandomPokemonFromDatabase(): FilteredPokemon{
         var response = pokemonDao.getRandomPokemon()
-        if(response==null){ // Por que me mientes, señor compilador, esto falla cuando la base de datos está vacía inicialmente
+        if(response==null){ // Android Studio miente
             response = defaultPokemon
         }
+        return response.toDomain()
+    }
+
+    suspend fun getPokemonDescriptionsFromDatabase(name: String): PokemonDescription {
+        val response = pokemonDao.getPokemonDescriptions(name)
         return response.toDomain()
     }
 
@@ -146,6 +160,10 @@ class PokemonRepository @Inject constructor(
 
     suspend fun insertPokemon(pokemon : PokemonEntity){
         pokemonDao.insertPokemon(pokemon)
+    }
+
+    suspend fun insertPokemonDescription(id:Int, descriptions : List<Description>){
+        descriptionsDao.insertPokemonDescriptions(id, descriptions)
     }
 
     suspend fun exists(name: String): Boolean{
