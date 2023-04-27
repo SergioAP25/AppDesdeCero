@@ -10,8 +10,10 @@ import com.sergio.appdesdecero.domain.*
 import com.sergio.appdesdecero.domain.model.FilteredPokemon
 import com.sergio.appdesdecero.domain.model.PokemonDescription
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import kotlin.random.Random
 
@@ -28,6 +30,8 @@ class PokemonDetailViewModel @Inject constructor(
     val pokemonDescription = MutableLiveData<String?>()
     val isLoading = MutableLiveData<Boolean>()
     var scope: Job? = null
+    var randomScope: Job? = null
+    var pokemonName: String = ""
 
     fun onCreate(pokemonName: String) {
         scope = viewModelScope.launch {
@@ -37,7 +41,14 @@ class PokemonDetailViewModel @Inject constructor(
 
             pokemonModel.postValue(result)
 
-            val description = getPokemonDescriptions(pokemonName).descriptions[0].flavor_text.replace("\n", " ")
+            val description: String
+            var list = getPokemonDescriptions(pokemonName).descriptions
+            if(!list.isEmpty()){
+                description = getPokemonDescriptions(pokemonName).descriptions[0].flavor_text.replace("\n", " ")
+            }
+            else{
+                description = "This pokemon has no description known"
+            }
 
             pokemonDescription.postValue(description)
 
@@ -45,12 +56,38 @@ class PokemonDetailViewModel @Inject constructor(
         }
     }
 
-    fun randomPokemon() {
+    fun homeFragmentCreate(){
         scope = viewModelScope.launch {
             isLoading.postValue(true)
+            randomPokemon()
+            randomScope?.join()
+            val result = getDetailPokemon(pokemonName)
 
+            pokemonModel.postValue(result)
+
+            val description: String
+            var list = getPokemonDescriptions(pokemonName).descriptions
+            if (!list.isEmpty()) {
+                description =
+                    getPokemonDescriptions(pokemonName).descriptions[0].flavor_text.replace(
+                        "\n",
+                        " "
+                    )
+            } else {
+                description = "This pokemon has no description known"
+            }
+
+            pokemonDescription.postValue(description)
+
+            isLoading.postValue(false)
+        }
+    }
+
+    fun randomPokemon(){
+        randomScope = viewModelScope.launch {
+            isLoading.postValue(true)
             val result = getRandomPokemon()
-
+            pokemonName = result.name
             pokemonModel.postValue(result)
             isLoading.postValue(false)
         }

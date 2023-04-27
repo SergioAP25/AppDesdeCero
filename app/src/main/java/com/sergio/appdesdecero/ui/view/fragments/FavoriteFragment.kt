@@ -2,6 +2,7 @@ package com.sergio.appdesdecero.ui.view.fragments
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.util.TypedValue
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -37,7 +38,7 @@ class FavoriteFragment @Inject constructor(): Fragment() {
         if(pokemonDetailViewModel.scope!=null){
             pokemonDetailViewModel.scope!!.cancel()
         }
-        pokemonDetailViewModel.randomPokemon()
+        pokemonDetailViewModel.homeFragmentCreate()
         pokemonDetailViewModel.pokemonModel.observe(viewLifecycleOwner, Observer {pokemon ->
             Picasso.get().load(pokemon?.sprites?.front_default).into(binding.pokemonImage)
             binding.pokemonName.text = pokemon?.name
@@ -78,7 +79,10 @@ class FavoriteFragment @Inject constructor(): Fragment() {
                     }
                 }
             }
+        })
 
+        pokemonDetailViewModel.pokemonDescription.observe(viewLifecycleOwner, Observer { pokemonDescription ->
+            binding.description.text = pokemonDescription
         })
         return binding.root
     }

@@ -7,7 +7,7 @@ import com.sergio.appdesdecero.data.model.Stats
 import com.sergio.appdesdecero.data.model.Types
 import com.sergio.appdesdecero.domain.model.FilteredPokemon
 
-const val DEFAULT_SPRITE = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/132.png"
+private const val DEFAULT_SPRITE = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/132.png"
 
 @Entity(tableName = "pokemon", indices = [
     Index(value = ["name"], unique = true)
