@@ -6,6 +6,7 @@ import com.sergio.appdesdecero.data.database.entities.toDatabase
 import com.sergio.appdesdecero.data.model.PokemonResults
 import com.sergio.appdesdecero.domain.model.FilteredPokemon
 import com.sergio.appdesdecero.domain.model.PokemonDescription
+import kotlinx.coroutines.delay
 import java.util.*
 import javax.inject.Inject
 
@@ -16,6 +17,9 @@ class GetPokemons @Inject constructor(
     suspend operator fun invoke(){
         do {
             apiList = repository.getAllPokemonsFromApi()?.results!!
+            if (apiList.isEmpty()){
+                delay(3000)
+            }
         }while (apiList.isEmpty())
         
         if(!repository.exists(capitalizeName(apiList.last().name))){
@@ -27,14 +31,19 @@ class GetPokemons @Inject constructor(
         var pokemon :FilteredPokemon?
         var pokemonDescription: PokemonDescription?
         var startingIndex = repository.countPokemons()
-
         if(repository.countPokemons()!=repository.countDescriptions()){
             do {
                 pokemon = repository.getAllPokemonsByNameFromApi(apiList[startingIndex].url.substring(34))
+                if (pokemon == null){
+                    delay(3000)
+                }
             }while (pokemon == null)
 
             do {
                 pokemonDescription = repository.getPokemonDescriptionByNameFromApi(pokemon.species.url.substring(42))
+                if (pokemonDescription == null){
+                    delay(3000)
+                }
             } while (pokemonDescription == null)
             repository.insertPokemonDescription(startingIndex, pokemonDescription.descriptions)
         }
@@ -42,10 +51,16 @@ class GetPokemons @Inject constructor(
         for(i in startingIndex until apiList.size){
             do {
                 pokemon = repository.getAllPokemonsByNameFromApi(apiList[i].url.substring(34))
+                if (pokemon == null){
+                    delay(3000)
+                }
             } while (pokemon == null)
 
             do {
                 pokemonDescription = repository.getPokemonDescriptionByNameFromApi(pokemon.species.url.substring(42))
+                if (pokemonDescription == null){
+                    delay(3000)
+                }
             }while (pokemonDescription == null)
 
             pokemon.name = capitalizeName(pokemon.name)
